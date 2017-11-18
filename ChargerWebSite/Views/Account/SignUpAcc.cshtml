@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/MyScript")
+    <meta name="viewport" content="width=device-width" />
+    <title>SignUpAcc</title>
+</head>
+<body style="min-width:480px">
+    <div class=" container bs-cont">
+        <div class="row">
+            <div class=" container bs-cont">
+                <div class="col-sm-1 col-md-2 col-lg-2"> </div>
+            
+                    <div class="container container-table">
+                        <div class="col-sm-10 col-md-8 col-lg-8">
+                            <div class="form-group">
+                                <h1 style="text-align:center; color:#eb9822; margin-top:100px">Регистрация</h1>
+                                <hr />
+                                <ol class="track-progress" data-steps="3">
+                                    <li>
+                                        <span>Профиль</span>
+                                        <i></i>
+                                    </li><li>
+                                        <span style="color:#eb9822">Доп.информация</span>
+                                    </li><li>
+                                        <span>Оплата</span>
+                                        <i></i>
+                                    </li>
+                                </ol>
+
+                                @using (Html.BeginForm("SignUpAcc", "Account", FormMethod.Post))
+                                {
+                                <div class="form-group">
+                                    <div class="container container-table" style="margin-top:40px; text-align:center;">
+                                        <input style="margin: 20px auto 0 auto" name="country" id="country" type="text" class="form-control input-lg" placeholder="Страна" aria-describedby="basic-addon1" onblur="return checkEmptyText(this)">
+                                        <input style="margin: 20px auto 0 auto" name="town" id="town" type="text" class="form-control input-lg" placeholder="Город" aria-describedby="basic-addon1" onblur="return checkEmptyText(this)">
+                                        <input style="margin: 20px auto 0 auto" name="address" id="address" type="text" class="form-control input-lg" placeholder="Адрес" aria-describedby="basic-addon1" onblur="return checkEmptyText(this)">
+                                        <input style="margin: 20px auto 0 auto" name="postIndex" id="postIndex" type="text" class="form-control input-lg" placeholder="Индекс" pattern="[0-9]{5}" title="Неверный индекс" aria-describedby="basic-addon1" onblur="return checkEmptyText(this)">
+
+                                        <select class="form-control input-lg" id="sex" name="sex" style="margin: 20px auto 0 auto" placeholder="Пол" onblur="checkEmptyText(this)">
+                                            <option value="0">Не указывать</option>
+                                            <option value="1">Мужской</option>
+                                            <option value="2">Женский</option>
+                                        </select>
+
+                                        <input name="DateTime" id="DateTime" type="date" class="form-control input-lg" placeholder="dd/mm/yyyy" style="margin: 20px auto 0 auto">
+
+                                            <div style="margin: 20px">
+                                                <input type="submit" value="Продолжить" class="btn btn-default btn-lg" style="color:#eb9822" onclick="return ValidSignUpAcc(this)">
+                                            </div>
+                                        </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-sm-1 col-md-2 col-lg-2"> </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

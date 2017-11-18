@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "LogIn";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LogIn</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-3 col-md-4 col-lg-4"></div>
+        @using (Html.BeginForm())
+            {
+            <div class="container container-table">
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <div class="container bs-cont">
+                        <div class="form-group">
+                            <h1 align="center" style="color:#eb9822; margin-top:150px">Log In</h1>
+                            <hr />
+                            <div class="input-group input-group-lg" style="margin-top:40px;">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user" style="font-size:16px; text-align:center"></span></span>
+                                <input id="Email" name="Email" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group input-group-lg" style="margin-top:20px">
+                                <span class="input-group-addon"><span class=" glyphicon glyphicon-eye-close" onclick="" style="font-size:16px;  text-align:center"></span></span>
+                                <input id="Pssword" name="Password" type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <div style="text-align:center; margin-top:20px">
+                                <input type="submit" value="Log In" class="btn btn-default btn-lg" style="color:#eb9822" />
+                            </div>
+                            <h3 style="text-align:center; color:black; margin-top:50px">
+                                @Html.ActionLink("Forgot Password?", "SignUp")
+                            </h3>
+                            <h4 style="text-align:center; color:black">
+                                Don't have an account? @Html.ActionLink("Sign Up", "SignUp")
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-sm-3 col-md-4 col-lg-4"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿@model ChargeWebSite.Models.Station
+
+<div class="modal-content">
+    <!-- Заголовок модального окна -->
+    <div class="modal-header">
+        <h3 style="text-align:center; color:#7095b7">Заправочная станция<span data-dismiss="modal" class="fa fa-close hover-blue-opacity" style="font-size:26px;color:#7095b7; float:right"></span></h3>
+    </div>
+    <!-- Основное содержимое модального окна -->
+    <div class="modal-body">
+        <div style="text-align:center">
+            <span>
+            <img src="@Url.Content(Model.GetStatusImage())" alt="Электрозаправка" />
+            @switch(Model.GetStationStatus_Int())
+                {
+                    case 1: <label class="status_gray">Недоступна</label>
+                        break;
+                    case 2: <lable class="status_green">Доступна</lable>
+                        break;
+                    case 3: <label class="status_blue">Занята/резерв</label>
+                        break;
+                    case 4: <lable class="status_orange">Аварийный стоп</lable>
+                        break;
+                    case 5: <label class="status_gray">Статус неизвестен</label>
+                        break;
+            }
+            </span>
+        </div>
+
+        <h5 style="text-align:left; color:#7095b7">Адрес:</h5>
+        <h5 id="Address"><i class="w3-margin-right glyphicon glyphicon glyphicon-home" style="color:#7095b7"></i>@Model.Address</h5>
+        <hr />
+
+        <h5 style="text-align:left; color:#7095b7">Телефон:</h5>
+        <h5 id="Phone"><i class="w3-margin-right glyphicon glyphicon-phone" style="color:#7095b7"></i>@Model.GetPhone</h5>
+        <hr />
+
+        <h5 style="text-align:left; color:#7095b7">Время работы:</h5>
+        <h5 id="OpenHours"><i class="w3-margin-right glyphicon glyphicon-time" style="color:#7095b7"></i>@Model.OpenHours</h5>
+        <hr />
+
+        <h5 style="text-align:left; color:#7095b7">Количество портов:</h5>
+        <h5 id="ShowEmail"><i class="w3-margin-right fa fa-plug" style="color:#7095b7"></i>@Model.Ports.Count</h5>
+        <hr />
+    </div>
+    <!-- Футер модального окна -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" style="background-color:#fa9a33" data-dismiss="modal">Закрыть</button>
+    </div>
+</div>

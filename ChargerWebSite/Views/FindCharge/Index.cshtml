@@ -1,0 +1,547 @@
+﻿@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/MyScript")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <meta name="viewport" content="width=device-width" />
+    <title>FindCharge</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default" style="border-radius:0;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">Найти заправку</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@Url.Action("Index","Home")"><span class="fa fa-arrow-circle-left"></span> Вернуться</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav> 
+
+    <div class="modal fade" id="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content" id="content">
+            </div>
+        </div>
+    </div>
+
+        <div class="col-sm-2 col-md-2 col-lg-2">
+       
+                
+                <lable style="font-size:26px; color:#7095b7; text-align:right">Фильтр</lable>
+                <hr />
+                <lable class="fa fa-cloud" style="font-size:20px;color:#7095b7"> Сеть заправок</lable>
+                <div id="FiltersForm">
+                    <div class="radio">
+                        <label><input type="radio" checked="checked" id="AllWeb" name="ChargeWeb" />Все</label>
+                    </div>
+
+                    <div class="radio">
+                        <label><input type="radio" id="OnlyUGV" name="ChargeWeb">Только UGV-Shneider</label>
+                    </div>
+
+                    <hr />
+                    <lable class="fa fa-map-marker fa-2x" style="font-size:20px;color:#7095b7"> Статус заправки</lable>
+
+                    <div class="radio">
+                        <label><input type="radio" checked="checked" id="AllStationsStatus" name="ChargeStatus" />Все</label>
+                    </div>
+
+                    <div class="radio">
+                        <label><input type="radio" id="OnlyAvailable" name="ChargeStatus">Только доступные</label>
+                    </div>
+
+                    <hr />
+                    <lable class="fa fa-plug" style="font-size:20px;color:#7095b7"> Типы портов</lable>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="CCS" name="PortType" type="checkbox">CCS</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="CHAdeMO" name="PortType" type="checkbox">CHAdeMO</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="J1772" name="PortType" type="checkbox">J1772</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="Nema1450" name="PortType" type="checkbox">Nema1450</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="Nema515" name="PortType" type="checkbox">Nema515</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="Nema520" name="PortType" type="checkbox">Nema520</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="Shuko" name="PortType" type="checkbox">Shuko</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="TeslaSuper" name="PortType" type="checkbox">TeslaSuper</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="Type2" name="PortType" type="checkbox">Type2</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="Type3" name="PortType" type="checkbox">Type3</label>
+                    </div>
+
+                    <hr />
+                    <lable class="fa fa-signal" style="font-size:20px;color:#7095b7"> Уровни</lable>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="Normal" name="ChargeLevel" type="checkbox">Normal</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="FastCharging" name="ChargeLevel" type="checkbox">FastCharging</label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input checked="checked" id="SuperCharging" name="ChargeLevel" type="checkbox">SuperCharging</label>
+                    </div>
+                    <hr />
+                    <button id="FiltersButton" class="btn btn-block" disabled="disabled" style="text-align:center; background-color:#fa9a33;" onclick="FindCharges()">Найти</button>
+                </div>
+           
+        </div>
+    <div class="col-sm-10 col-md-10 col-lg-10" style="height:100%">
+        <div class="container-fluid">
+            <div id="map" style="width:100%;height:100%; position:absolute; background:grey;margin-top:5px"></div>
+        </div>
+    </div>
+    <script>
+                            var AllStations = @Html.Raw(Json.Encode(ViewBag.AllStations));
+                            var map = null;
+                            var markers = [];
+                            var lastMarker;
+                            var lastMarkerUnselectImage;
+                            var infowindow;
+                            function initMap() {
+                                var haightAshbury = { lat: 47.838800, lng: 35.10 };
+
+                                map = new google.maps.Map(document.getElementById('map'), {
+                                    zoom: 12,
+                                    center: haightAshbury,
+                                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                                });
+
+                                if (navigator.geolocation) {
+                                    navigator.geolocation.getCurrentPosition(function (position) {
+                                        var currLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                                        new google.maps.Marker({
+                                            title: 'Ваше местоположение',
+                                            map: map,
+                                            position: currLocation
+                                            // добавить синюю точку как на навигаторе
+                                        });
+                                        map.setCenter(currLocation);
+
+                                        // подгрузка OtherStation в точке местоположения
+                                        $.ajax({
+                                            url: '/FindCharge/UpdateOtherStations',
+                                            type: 'POST',
+                                            contentType: 'application/json',
+                                            dataType: 'json',
+                                            data: JSON.stringify({
+                                                Latitude: position.coords.latitude,
+                                                Longitude: position.coords.longitude
+                                            }),
+                                            success: function (newOtherStations) {
+                                                for (var i = 0; i < newOtherStations.length; i++) {
+                                                    addMarker(new google.maps.LatLng(newOtherStations[i].Position.Latitude, newOtherStations[i].Position.Longitude), false, newOtherStations[i]);
+                                                }
+                                            },
+                                            error: function (response) {
+                                                alert("Error");
+                                            }
+                                        })
+                                    });
+                                }
+
+                                for (var i = 0; i < AllStations.length; i++) {
+                                    addMarker(new google.maps.LatLng(AllStations[i].Latitude, AllStations[i].Longitude), true, AllStations[i]);
+                                }
+
+                                map.addListener('click', function () {
+                                    if (lastMarker != null) {
+
+                                        lastMarker.setIcon({
+                                            url: lastMarkerUnselectImage,
+                                            scaledSize: new google.maps.Size(48, 48)
+                                        });
+
+                                        lastMarker = null;
+                                    }
+
+                                    if (infowindow != null) {
+                                        infowindow.close();
+                                    }
+                                })
+
+                                google.maps.event.addListener(map, "dragend", function () {
+                                    $.ajax({
+                                        url: '/FindCharge/UpdateOtherStations',
+                                        type: 'POST',
+                                        contentType: 'application/json',
+                                        dataType: 'json',
+                                        data: JSON.stringify({
+                                            Latitude: map.getCenter().lat(),
+                                            Longitude: map.getCenter().lng()
+                                        }),
+                                        success: function (newOtherStations) {
+                                            for (var i = 0; i < newOtherStations.length; i++) {
+                                                addMarker(new google.maps.LatLng(newOtherStations[i].Position.Latitude, newOtherStations[i].Position.Longitude), false, newOtherStations[i]);
+                                            }
+                                        },
+                                        error: function (response) {
+                                            alert("UpdateOtherStation Error");
+                                        }
+                                    })
+                                });
+                            }
+
+                            function addMarker(location, markerType, station) {
+                                var marker = new google.maps.Marker();
+                                $.ajax({
+                                    url: '/FindCharge/GetMarkerImage',
+                                    type: 'POST',
+                                    dataType: "json",
+                                    data: {
+                                        id: JSON.stringify(station.Id),
+                                        ourStation: JSON.stringify(markerType)
+                                    },
+                                    success: function (iconPath) {
+
+                                        marker = new google.maps.Marker({
+                                            position: location,
+                                            animation: google.maps.Animation.DROP,
+                                            icon: {
+                                                url: iconPath[0],
+                                                scaledSize: new google.maps.Size(48, 48)
+                                            },
+                                            map: map
+                                        });
+
+
+                                        marker.addListener('click', function () {
+                                            map.panTo(marker.getPosition());
+
+                                            $.ajax({
+                                                url: '/FindCharge/GetMarkerImage',
+                                                type: 'POST',
+                                                dataType: "json",
+                                                data: {
+                                                    id: JSON.stringify(station.Id),
+                                                    ourStation: JSON.stringify(markerType)
+                                                },
+                                                success: function (newiconPath) {
+
+                                                    marker.setIcon({
+                                                        url: newiconPath[1],
+                                                        scaledSize: new google.maps.Size(48, 48)
+                                                    });
+
+                                                    if (lastMarker != null && lastMarker != marker) {
+
+                                                        lastMarker.setIcon({
+                                                            url: lastMarkerUnselectImage,
+                                                            scaledSize: new google.maps.Size(48, 48)
+                                                        });
+                                                    }
+
+                                                    lastMarker = marker;
+                                                    lastMarkerUnselectImage = newiconPath[0];
+
+                                                    if (markerType) {
+                                                        var contentString =
+                                                            '<div class="container" id="StationContent">' +
+                                                            '<h5 style="color:#7095b7">Электрозаправка UGV-Shneider</h5>' +
+                                                            'Телефон: ' + String(GetProp(station.Phone)) +
+                                                            '<br/>' +
+                                                            'Адрес: ' + String(GetProp(station.Address)) +
+                                                            '<br/>' +
+                                                            '<div style="text-align:center">' +
+                                                            '<button class="btn btn-primary" style="background-color:#fa9a33" data-toggle="modal" onclick="OpenModal(' + String(GetProp(station.Id)) + ')">Подробнее</button>' +
+                                                            '</div>' +
+                                                            '</div>';
+
+                                                        if (infowindow != null) {
+                                                            infowindow.close();
+                                                        }
+                                                        infowindow = new google.maps.InfoWindow({
+                                                            content: contentString
+                                                        });
+                                                        infowindow.open(map, marker);
+                                                    }
+                                                    else {
+                                                        $.ajax({
+                                                            url: "@Url.Content("/FindCharge/GetOtherStationInfo")",
+                                                            type: 'GET',
+                                                            dataType: "json",
+                                                            data: {
+                                                                PlaceId: station.PlaceId
+                                                            },
+                                                            success: function (OtherStation) {
+                                                                var contentString =
+                                                                    '<div class="container" id="OtherStationContent">' +
+                                                                    '<h4 style="text-align:center">Электрозаправка</h4>' +
+                                                                    '<h5 style="text-align:center">' + String(GetProp(OtherStation.Name)) + '</h5>' +
+                                                                    'Телефон: ' + String(GetProp(OtherStation.Phone)) +
+                                                                    '<br/>' +
+                                                                    'Адрес: ' + String(GetProp(OtherStation.Address)) +
+                                                                    '<br/>' +
+                                                                    '<a href="' + String(GetProp(OtherStation.MapUrl)) + '" target="_blank">Посмотреть в Google Maps</a>' +
+                                                                    '</div>';
+                                                                if (infowindow != null) {
+                                                                    infowindow.close();
+                                                                }
+                                                                infowindow = new google.maps.InfoWindow({
+                                                                    content: contentString
+                                                                });
+                                                                infowindow.open(map, marker);
+                                                            }
+                                                        });
+
+                                                    }
+                                                },
+
+                                                error: function (response) {
+                                                    alert("Error getting newMarkerImage " + response);
+                                                }
+                                            });
+                                        });
+                                        markers.push(marker);
+                                    },
+                                    error: function (response) {
+                                        alert("ErrorMarkerImage" + response);
+                                    }
+                                });
+
+                            }
+    </script>     
+    
+    <script>
+                            var FilterSettings = {
+                                ChargeStatus: true,
+                                ChargeWeb: true,
+                                PortTypes: ["CCS", "CHAdeMO", "J1772", "Nema1450", "Nema515", "Nema520", "Shuko", "TeslaSuper", "Type2", "Type3"],
+                                ChargeLevels: ["Normal", "FastCharging", "SuperCharging"]
+                            };
+
+                            function AllowAddStation(station, isOurStation) {
+
+                                if (FilterSettings.ChargeWeb == false) //заправки сети UGV
+                                {
+                                    if (isOurStation == false) //чужая заправка
+                                    {
+                                        return false;
+                                    }
+                                }
+
+                                if (FilterSettings.ChargeStatus == false) //только доступные заправки
+                                {
+                                    if (isOurStation) {
+                                        if (station.GetStationStatus_Boolean == false) {
+                                            return false;
+                                        }
+                                    }
+                                }
+
+                                if (isOurStation) {
+                                    var flag = false;
+                                    for (var j = 0; j < station.Ports.length; j++) {
+                                        if ((FilterSettings.PortTypes.indexOf(station.Ports[j].PortType) != -1)) {
+                                            flag = true;
+                                        }
+                                    }
+                                    if (flag == false && station.Ports.length != 0)
+                                        return false;
+                                }
+
+                                if (isOurStation) {
+                                    var flag = false;
+                                    for (var j = 0; j < station.Ports.length; j++) {
+                                        if ((FilterSettings.ChargeLevels.indexOf(station.Ports[j].Level) != -1)) {
+                                            flag = true;
+                                        }
+                                    }
+                                    if (flag == false && station.Ports.length != 0)
+                                        return false;
+                                }
+
+                                return true;
+                            }
+    </script>
+
+    <script>
+                            function handler(event) {
+                                $('#FiltersButton').prop('disabled', false);
+                                $('#FiltersButton').addClass("btn-primary");
+                            }
+                            var form = document.getElementById('FiltersForm')
+                            form.addEventListener('change', handler)
+    </script>
+
+    <script>
+          function FindCharges() {
+                                $('#FiltersButton').prop('disabled', true);
+                                $('#FiltersButton').removeClass("btn-primary");
+                                deleteMarkers();
+
+                                var ResultPortTypes = [];
+                                var ResultChargeLevels = [];
+                                var ResultChargeWeb;
+                                var ResultChargeStatus;
+
+                                var ChargeStatus = document.getElementById("AllStationsStatus");
+                                var ChargeWeb = document.getElementById("AllWeb");
+                                var PortTypes = document.getElementsByName("PortType");
+                                var ChargeLevels = document.getElementsByName("ChargeLevel");
+                                var currIndex = 0;
+                                for (var i = 0; i < PortTypes.length; i++) {
+                                    if (jQuery(PortTypes[i]).prop('checked')) {
+                                        ResultPortTypes[currIndex] = (jQuery(PortTypes[i]).prop('id'));
+                                        currIndex++;
+                                    }
+
+                                }
+
+                                currIndex = 0;
+                                for (var i = 0; i < ChargeLevels.length; i++) {
+                                    if (jQuery(ChargeLevels[i]).prop('checked')) {
+                                        ResultChargeLevels[currIndex] = (jQuery(ChargeLevels[i]).prop('id'));
+                                        currIndex++;
+                                    }
+                                }
+
+                                if (jQuery(ChargeWeb).prop('checked'))
+                                    ResultChargeWeb = true;
+                                else
+                                    ResultChargeWeb = false;
+
+                                if (jQuery(ChargeStatus).prop('checked'))
+                                    ResultChargeStatus = true;
+                                else
+                                    ResultChargeStatus = false;
+
+
+                                FilterSettings.ChargeLevels = ResultChargeLevels;
+                                FilterSettings.PortTypes = ResultPortTypes;
+                                FilterSettings.ChargeWeb = ResultChargeWeb;
+                                FilterSettings.ChargeStatus = ResultChargeStatus;
+
+
+                                for (var i = 0; i < AllStations.length; i++) {
+                                    if (AllowAddStation(AllStations[i], true))
+                                        addMarker(new google.maps.LatLng(AllStations[i].Latitude, AllStations[i].Longitude), true, AllStations[i]);
+                                }
+
+                                $.ajax({
+                                    url: "@Url.Content("/FindCharge/GetOtherStationsFromHeshSet/")",
+                                    type: 'GET',
+                                    dataType: "json",
+                                    success: function (otherStations) {
+                                        for (var i = 0; i < otherStations.length; i++)
+                                            if (AllowAddStation(otherStations[i], false))
+                                                addMarker(new google.maps.LatLng(otherStations[i].Position.Latitude, otherStations[i].Position.Longitude), false, otherStations[i]);
+                                    },
+                                    error: function () {
+                                        console.log('Error Get Other Stations From HeshSet');
+                                    }
+                                });
+                            }
+    </script>
+
+    <script>
+         function OpenModal(id)
+                            {
+                                $.ajax({
+                                    url: "@Url.Content("/FindCharge/GetStationInfo/")",
+                                    type: 'GET',
+                                    data: {
+                                        Id:id
+                                    },
+                                    dataType: 'html',
+                                    success: function (data) {
+                                        $('#content').html(data);
+                                        $('#dialog').modal('show');
+
+                                    },
+                                    error: function (response) {
+                                        alert("OpenModal Error");
+                                    }
+                                })
+                            }
+
+                            function GetProp(prop) {
+                                if (prop === undefined || prop === null) {
+                                    return "Не указано";
+                                }
+                                else {
+                                    return prop;
+                                }
+                            }
+
+                            function clearMarkers() {
+                                setMapOnAll(null);
+                            }
+
+                            function showMarkers() {
+                                setMapOnAll(map);
+                            }
+
+                            function setMapOnAll(map) {
+                                for (var i = 0; i < markers.length; i++) {
+                                    markers[i].setMap(map);
+                                }
+                            }
+
+                            function deleteMarkers() {
+                                clearMarkers();
+                                markers = [];
+                            }
+    </script>
+
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEPGzLwvvtt5aCIu2QzO645E-Wlr1ESvg&callback=initMap"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
