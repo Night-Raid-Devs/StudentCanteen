@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DatabaseData.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)RemoteStationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RestApiData.cs" />
   </ItemGroup>
 </Project>

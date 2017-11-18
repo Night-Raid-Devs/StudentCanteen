@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Infocom.Chargers.BackendCommon;
+using BackendCommon;
 
-namespace Infocom.Chargers.BackendDatabase
+namespace BackendDatabase
 {
     // Singletone class
     public sealed class DatabaseManager : IDatabase
