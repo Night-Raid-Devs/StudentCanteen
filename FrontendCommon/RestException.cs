@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Infocom.Chargers.BackendCommon;
+using BackendCommon;
 
-namespace Infocom.Chargers.FrontendCommon
+namespace FrontendCommon
 {
     public class RestException : Exception
     {

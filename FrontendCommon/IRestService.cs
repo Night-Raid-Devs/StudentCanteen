@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Infocom.Chargers.FrontendCommon
+namespace FrontendCommon
 {
     public interface IRestService
     {

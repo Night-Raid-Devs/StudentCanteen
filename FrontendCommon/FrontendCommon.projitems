@@ -6,11 +6,10 @@
     <SharedGUID>b5b178b7-d103-4520-99d0-80d0c1bc1cc5</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Infocom.Chargers.FrontendCommon</Import_RootNamespace>
+    <Import_RootNamespace>FrontendCommon</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)IRestService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PlacesException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RestDataManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RestException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RestService.cs" />

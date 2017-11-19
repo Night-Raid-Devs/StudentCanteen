@@ -6,7 +6,7 @@
     <SharedGUID>4d0a0522-b59e-44b6-8a2c-ab919eddbd79</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>BackendShared</Import_RootNamespace>
+    <Import_RootNamespace>BackendCommon</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DatabaseData.cs" />

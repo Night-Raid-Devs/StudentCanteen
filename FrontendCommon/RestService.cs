@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Infocom.Chargers.FrontendCommon
+namespace FrontendCommon
 {
     public class RestService : IRestService
     {
