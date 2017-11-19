@@ -5,7 +5,7 @@ using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
 
-namespace Infocom.Chargers.BackendAppServer
+namespace BackendAppServer
 {
     public class WCFServiceHost : ServiceHost
     {

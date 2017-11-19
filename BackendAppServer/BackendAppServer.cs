@@ -5,10 +5,10 @@ using System.ServiceProcess;
 using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
-using Infocom.Chargers.BackendCommon;
-using Infocom.Chargers.BackendDatabase;
+using BackendCommon;
+using BackendDatabase;
 
-namespace Infocom.Chargers.BackendAppServer
+namespace BackendAppServer
 {
     public partial class BackendAppServer : ServiceBase
     {

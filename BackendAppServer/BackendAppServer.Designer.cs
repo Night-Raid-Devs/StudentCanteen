@@ -1,4 +1,4 @@
-﻿namespace Infocom.Chargers.BackendAppServer
+﻿namespace BackendAppServer
 {
     public partial class BackendAppServer
     {

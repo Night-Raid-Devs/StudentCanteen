@@ -27,9 +27,9 @@
     </behaviors>
     <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true" />
     <services>
-      <service name="Infocom.Chargers.BackendAppServer.RestApiService" behaviorConfiguration="ServiceBehaviour">
-        <endpoint address="" behaviorConfiguration="rest" binding="webHttpBinding" contract="Infocom.Chargers.BackendAppServer.IRestApiService" />
-        <endpoint address="soap" behaviorConfiguration="ws" binding="wsHttpBinding" contract="Infocom.Chargers.BackendAppServer.IRestApiService" />
+      <service name="BackendAppServer.RestApiService" behaviorConfiguration="ServiceBehaviour">
+        <endpoint address="" behaviorConfiguration="rest" binding="webHttpBinding" contract="BackendAppServer.IRestApiService" />
+        <endpoint address="soap" behaviorConfiguration="ws" binding="wsHttpBinding" contract="BackendAppServer.IRestApiService" />
         <host>
           <baseAddresses>
             <add baseAddress="http://localhost:8080" />

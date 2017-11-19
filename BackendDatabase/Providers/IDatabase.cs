@@ -16,6 +16,8 @@ namespace BackendDatabase
 
         void DeleteSession(string sessionToken);
 
+        void DeleteSession(long customerId);
+
         #endregion
 
         #region Customers
@@ -36,11 +38,22 @@ namespace BackendDatabase
 
         void UpdateDish(DishData dish);
 
-        List<DishData> GetDishes(long customerId, long startDate, long endDate);
-
-        List<DishData> GetMenuDishes(long startDate, long endDate);
+        // Get Dishes with orders for customerId and dishId or only for dishId if customerId = null
+        List<DishData> GetDishes(long? customerId, long startDate, long endDate);
 
         void DeleteDish(DishData dish);
+
+        #endregion
+
+        #region Orders
+
+        long CreateOrder(OrderData order);
+
+        void UpdateOrder(OrderData order);
+
+        List<OrderData> GetOrders(long? customerId = null, long? dishId = null);
+
+        void DeleteOrder(OrderData order);
 
         #endregion
     }

@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{06C8B8FA-6EC4-465B-8F9E-6169C8AB7CBF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Infocom.Chargers.BackendAppServer</RootNamespace>
+    <RootNamespace>BackendAppServer</RootNamespace>
     <AssemblyName>BackendAppServer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -55,7 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Infocom.Chargers.BackendAppServer.BackendAppServer</StartupObject>
+    <StartupObject>BackendAppServer.BackendAppServer</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -116,14 +116,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BackendBilling\BackendBilling.csproj">
-      <Project>{28e655dc-a568-452f-a6c4-d326b0705741}</Project>
-      <Name>BackendBilling</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BackendCharge\BackendCharge.csproj">
-      <Project>{9fd5ccd4-39e0-481b-9018-6917d0af2cbb}</Project>
-      <Name>BackendCharge</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BackendDatabase\BackendDatabase.csproj">
       <Project>{a74136b3-7ca1-4ca7-a1b3-ca838bb73edc}</Project>
       <Name>BackendDatabase</Name>
@@ -133,12 +125,10 @@
     <Content Include="BackendAppServer.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets" Condition="Exists('..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.4.7.55.0\build\StyleCop.MSBuild.Targets'))" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)*.xml"  "$(SolutionDir)$(ConfigurationName)\" /F /Y /C /R /K /D</PostBuildEvent>

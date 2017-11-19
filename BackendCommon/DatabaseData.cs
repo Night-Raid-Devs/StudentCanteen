@@ -17,75 +17,6 @@ namespace BackendCommon
         public int Delay;               // Delay on reconnection/try in seconds
     }
 
-    [DataContract, TableAttr(Name = "Dish")]
-    public class DishData
-    {
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsId = true, IsUpdateKey = true)]
-        public long Id { get; set; }
-
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
-        public long? CustomerId { get; set; }
-
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 64)]
-        public string Name { get; set; }
-
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 16)]
-        public string DishType { get; set; }
-
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
-        public long? Count { get; set; }
-
-        [DataMember(Name = "Date", IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
-        public long? DateEpochtime { get; set; }
-
-        public DateTime? Date
-        {
-            get { return Epochtime.ToDateTime(this.DateEpochtime); }
-        }
-
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsUpdatable = false)]
-        public bool? MenuLabel { get; set; }
-
-        // If this record is deleted or not
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
-        public bool? Deleted { get; set; }
-    }
-
-    [DataContract, TableAttr(Name = "Customer")]
-    public class CustomerData
-    {
-        // Unique Id of customer
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsId = true, IsUpdateKey = true)]
-        public long Id { get; set; }
-
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 64)]
-        public string Login { get; set; }
-
-        // SHA256 is used for hashing
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 64)]
-        public string Password { get; set; }
-
-        // Enumeration of access rights, e.g. User or Admin, see BackendAppServer.AccessRights
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 16)]
-        public string AccessRights { get; set; }
-
-        // First name if it is private person
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 32)]
-        public string FirstName { get; set; }
-
-        // Last name
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 32)]
-        public string LastName { get; set; }
-
-        // List of dishes, readonly
-        [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public List<DishData> Dishes { get; set; } = new List<DishData>();
-
-        // If this record is deleted or not
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
-        public bool? Deleted { get; set; }
-    }
-
     [DataContract, TableAttr(Name = "Session")]
     public class SessionData
     {
@@ -119,7 +50,88 @@ namespace BackendCommon
         public bool? Deleted { get; set; }
     }
 
-    // Extention of DateTime with epochtime conversion
+    [DataContract, TableAttr(Name = "Customer")]
+    public class CustomerData
+    {
+        // Unique Id of customer
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsId = true, IsUpdateKey = true)]
+        public long Id { get; set; }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 64)]
+        public string Login { get; set; }
+
+        // SHA256 is used for hashing
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 64)]
+        public string Password { get; set; }
+
+        // Enumeration of access rights, e.g. User or Admin, see BackendAppServer.AccessRights
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 16)]
+        public string AccessRights { get; set; }
+
+        // First name if it is private person
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 32)]
+        public string FirstName { get; set; }
+
+        // Last name
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 32)]
+        public string LastName { get; set; }
+
+        // List of orders, readonly
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public List<OrderData> Orders { get; set; } = new List<OrderData>();
+
+        // If this record is deleted or not
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
+        public bool? Deleted { get; set; }
+    }
+
+    [DataContract, TableAttr(Name = "Dish")]
+    public class DishData
+    {
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsId = true, IsUpdateKey = true)]
+        public long Id { get; set; }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 64)]
+        public string Name { get; set; }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 16)]
+        public string DishType { get; set; }
+
+        [DataMember(Name = "ValidDate", IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
+        public long? ValidDateEpochtime { get; set; }
+
+        public DateTime? ValidDate
+        {
+            get { return Epochtime.ToDateTime(this.ValidDateEpochtime); }
+        }
+
+        // List of orders, readonly
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public List<OrderData> Orders { get; set; } = new List<OrderData>();
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
+        public bool? Deleted { get; set; }
+    }
+
+    [DataContract, TableAttr(Name = "Orders")]
+    public class OrderData
+    {
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsId = true, IsUpdateKey = true)]
+        public long Id { get; set; }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsUpdateKey = true)]
+        public long? CustomerId { get; set; }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
+        public long? DishId { get; set; }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
+        public double? Count { get; set; }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
+        public bool? Deleted { get; set; }
+    }
+
     public static class Epochtime
     {
         public static long ToEpochtime(this DateTime dateTime)

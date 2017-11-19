@@ -49,6 +49,11 @@ namespace BackendDatabase
             db.DeleteSession(sessionToken);
         }
 
+        public void DeleteSession(long customerId)
+        {
+            db.DeleteSession(customerId);
+        }
+
         #endregion
 
         #region Customers
@@ -87,19 +92,39 @@ namespace BackendDatabase
             db.UpdateDish(dish);
         }
 
-        public List<DishData> GetDishes(long customerId, long startDate, long endDate)
+        // Get Dishes with orders for customerId and dishId or only for dishId if customerId = null
+        public List<DishData> GetDishes(long? customerId, long startDate, long endDate)
         {
             return db.GetDishes(customerId, startDate, endDate);
-        }
-
-        public List<DishData> GetMenuDishes(long startDate, long endDate)
-        {
-            return db.GetMenuDishes(startDate, endDate);
         }
 
         public void DeleteDish(DishData dish)
         {
             db.DeleteDish(dish);
+        }
+
+        #endregion
+
+        #region Orders
+
+        public long CreateOrder(OrderData order)
+        {
+            return db.CreateOrder(order);
+        }
+
+        public void UpdateOrder(OrderData order)
+        {
+            db.UpdateOrder(order);
+        }
+
+        public List<OrderData> GetOrders(long? customerId = null, long? dishId = null)
+        {
+            return db.GetOrders(customerId, dishId);
+        }
+
+        public void DeleteOrder(OrderData order)
+        {
+            db.DeleteOrder(order);
         }
 
         #endregion

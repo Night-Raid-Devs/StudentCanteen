@@ -7,7 +7,7 @@
     <ProjectGuid>{A74136B3-7CA1-4CA7-A1B3-CA838BB73EDC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Infocom.Chargers.BackendDatabase</RootNamespace>
+    <RootNamespace>BackendDatabase</RootNamespace>
     <AssemblyName>BackendDatabase</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

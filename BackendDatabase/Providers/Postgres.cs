@@ -132,6 +132,19 @@ namespace BackendDatabase
                 e => false);       // Do not return exception, be just silent
         }
 
+        // Delete all sessions of this customer
+        public void DeleteSession(long customerId)
+        {
+            this.Execute(
+                "UPDATE Session SET Deleted='T', WHERE CustomerId=@p AND Deleted='F'",
+                cmd =>
+                {
+                    this.AddParam(cmd, "p", customerId);
+                    cmd.ExecuteNonQuery();
+                },
+                e => false);       // Do not return exception, be just silent
+        }
+
         #endregion
 
         #region Customers
@@ -181,7 +194,7 @@ namespace BackendDatabase
                 });
 
             DateTime currentMonday = this.GetCurrentWeekMonday();
-            customer.Dishes = this.GetDishes(customer.Id, currentMonday.ToEpochtime(), currentMonday.AddDays(7).ToEpochtime());
+            customer.Orders = this.GetOrders(customer.Id);
             
             return customer;
         }
@@ -204,6 +217,7 @@ namespace BackendDatabase
                             customer.AccessRights = this.GetParamString(reader, 3);
                             customer.FirstName = this.GetParamString(reader, 4);
                             customer.LastName = this.GetParamString(reader, 5);
+                            customer.Orders = this.GetOrders(customer.Id);
                             customers.Add(customer);
                         }
                     }
@@ -226,9 +240,9 @@ namespace BackendDatabase
                 dish,
                 e =>
                 {
-                    if (e.Message.Contains("idx_dish_customerid_name"))
+                    if (e.Message.Contains("idx_dish_name_type_date"))
                     {
-                        throw new Exception(string.Format("Блюдо с именем '{0}' уже существует у пользователя с id '{1}'", dish.Name, dish.CustomerId));
+                        throw new Exception(string.Format("Блюдо с именем '{0}' и типом {1} с датой {2} уже существует", dish.Name, dish.DishType, dish.ValidDate?.ToShortDateString()));
                     }
 
                     return true;
@@ -241,51 +255,46 @@ namespace BackendDatabase
                 dish,
                 e =>
                 {
-                    if (e.Message.Contains("idx_dish_customerid_name"))
+                    if (e.Message.Contains("idx_dish_name_type_date"))
                     {
-                        throw new Exception(string.Format("Блюдо с именем '{0}' уже существует у пользователя с id '{1}'", dish.Name, dish.CustomerId));
+                        throw new Exception(string.Format("Блюдо с именем '{0}' и типом {1} с датой {2} уже существует", dish.Name, dish.DishType, dish.ValidDate?.ToShortDateString()));
                     }
 
                     return true;
                 });
         }
 
-        public List<DishData> GetDishes(long customerId, long startDate, long endDate)
+        public DishData GetDish(long dishId)
         {
-            List<DishData> dishes = new List<DishData>();
+            DishData dish = null;
             this.Execute(
-                "SELECT Id,CustomerId,Name,DishType,Count,Date FROM Dish"
-                + " WHERE CustomerId=@p1 AND Date>=@p2 AND Date<=@p3 AND MenuLabel='F' AND Deleted='F'",
+                "SELECT Name,DishType,Date FROM Dish"
+                + " WHERE Id=@p1 AND Deleted='F'",
                 cmd =>
                 {
-                    this.AddParam(cmd, "p1", customerId);
-                    this.AddParam(cmd, "p2", startDate);
-                    this.AddParam(cmd, "p3", endDate);
-
+                    this.AddParam(cmd, "p1", dishId);
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            DishData dish = new DishData();
-                            dish.Id = reader.GetInt64(0);
-                            dish.CustomerId = reader.GetInt64(1);
-                            dish.Name = this.GetParamString(reader, 2);
-                            dish.DishType = this.GetParamString(reader, 3);
-                            dish.Count = this.GetParamLong(reader, 4);
-                            dish.DateEpochtime = this.GetParamLong(reader, 5);
-                            dishes.Add(dish);
+                            dish = new DishData();
+                            dish.Id = dishId;
+                            dish.Name = this.GetParamString(reader, 0);
+                            dish.DishType = this.GetParamString(reader, 1);
+                            dish.ValidDateEpochtime = this.GetParamLong(reader, 2);
                         }
                     }
                 });
-            return dishes;
+            return dish;
         }
 
-        public List<DishData> GetMenuDishes(long startDate, long endDate)
+        // Get Dishes with orders for customerId and dishId or only for dishId if customerId = null
+        public List<DishData> GetDishes(long? customerId, long startDate, long endDate)
         {
             List<DishData> dishes = new List<DishData>();
             this.Execute(
                 "SELECT Id,Name,DishType,Date FROM Dish"
-                + " WHERE Date>=@p1 AND Date<=@p2 AND MenuLabel='T' AND Deleted='F'",
+                + " WHERE Date>=@p1 AND Date<=@p2 AND Deleted='F'",
                 cmd =>
                 {
                     this.AddParam(cmd, "p1", startDate);
@@ -299,7 +308,8 @@ namespace BackendDatabase
                             dish.Id = reader.GetInt64(0);
                             dish.Name = this.GetParamString(reader, 1);
                             dish.DishType = this.GetParamString(reader, 2);
-                            dish.DateEpochtime = this.GetParamLong(reader, 3);
+                            dish.ValidDateEpochtime = this.GetParamLong(reader, 3);
+                            dish.Orders = this.GetOrders(customerId, dish.Id);
                             dishes.Add(dish);
                         }
                     }
@@ -310,6 +320,81 @@ namespace BackendDatabase
         public void DeleteDish(DishData dish)
         {
             this.ExecuteDelete(dish);
+        }
+
+        #endregion
+
+        #region Orders
+
+        public long CreateOrder(OrderData order)
+        {
+            return this.ExecuteCreate(
+                order,
+                e =>
+                {
+                    if (e.Message.Contains("idx_order_customerid_dishid"))
+                    {
+                        throw new Exception(string.Format("Заказ у пользователя с id '{0}' блюда с id '{1}' уже существует", order.CustomerId, order.DishId));
+                    }
+
+                    return true;
+                });
+        }
+
+        public void UpdateOrder(OrderData order)
+        {
+            this.ExecuteUpdate(
+                order,
+                e =>
+                {
+                    if (e.Message.Contains("idx_order_customerid_dishid"))
+                    {
+                        throw new Exception(string.Format("Заказ у пользователя с id '{0}' блюда с id '{1}' уже существует", order.CustomerId, order.DishId));
+                    }
+
+                    return true;
+                });
+        }
+
+        public List<OrderData> GetOrders(long? customerId = null, long? dishId = null)
+        {
+            List<OrderData> orders = new List<OrderData>();
+            string customerIdQuery = customerId != null ? " AND CustomerId=@p1" : string.Empty;
+            string dishIdQuery = customerId != null ? " AND DishId=@p2" : string.Empty;
+            this.Execute(
+                "SELECT Id,CustomerId,DishId,Count FROM Order"
+                + " WHERE Deleted='F'" + customerIdQuery + dishIdQuery,
+                cmd =>
+                {
+                    if (customerId != null)
+                    {
+                        this.AddParam(cmd, "p1", customerId);
+                    }
+
+                    if (dishId != null)
+                    {
+                        this.AddParam(cmd, "p2", dishId);
+                    }
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            OrderData order = new OrderData();
+                            order.Id = reader.GetInt64(0);
+                            order.CustomerId = reader.GetInt64(1);
+                            order.DishId = reader.GetInt64(2);
+                            order.Count = this.GetParamLong(reader, 3);
+                            orders.Add(order);
+                        }
+                    }
+                });
+            return orders;
+        }
+
+        public void DeleteOrder(OrderData order)
+        {
+            this.ExecuteDelete(order);
         }
 
         #endregion
@@ -332,6 +417,7 @@ namespace BackendDatabase
             this.CreateTableSession();
             this.CreateTableCustomer();
             this.CreateTableDish();
+            this.CreateTableOrder();
         }
 
         private void CreateTableSession()
@@ -344,8 +430,8 @@ namespace BackendDatabase
                 + "Id BIGINT PRIMARY KEY DEFAULT NEXTVAL('Seq_Session_Id'),"
                 + "SessionToken VARCHAR(32) NOT NULL,"
                 + "CustomerId BIGINT NOT NULL,"
-                + "AccessRights VARCHAR(16),"
-                + "ExpirationDate BIGINT,"
+                + "AccessRights VARCHAR(16) NOT NULL,"
+                + "ExpirationDate BIGINT NOT NULL,"
                 + "Deleted BOOLEAN"
                 + ")");
 
@@ -363,9 +449,9 @@ namespace BackendDatabase
                 + "Id BIGINT PRIMARY KEY DEFAULT NEXTVAL('Seq_Customer_Id'),"
                 + "Login VARCHAR(64) NOT NULL,"
                 + "Password VARCHAR(64) NOT NULL,"
-                + "AccessRights VARCHAR(16),"
-                + "FirstName VARCHAR(32),"
-                + "LastName VARCHAR(32),"
+                + "AccessRights VARCHAR(16) NOT NULL,"
+                + "FirstName VARCHAR(32) NOT NULL,"
+                + "LastName VARCHAR(32) NOT NULL,"
                 + "Deleted BOOLEAN"
                 + ")");
 
@@ -380,15 +466,28 @@ namespace BackendDatabase
                 "CREATE TABLE IF NOT EXISTS Dish"
                 + "("
                 + "Id BIGINT PRIMARY KEY DEFAULT NEXTVAL('Seq_Dish_Id'),"
-                + "CustomerId BIGINT NOT NULL REFERENCES Customer(Id) ON DELETE CASCADE,"
-                + "Name VARCHAR(64),"
-                + "DishType VARCHAR(16),"
-                + "Count BIGINT,"
-                + "Date BIGINT,"
-                + "MenuLabel BOOLEAN,"
+                + "Name VARCHAR(64) NOT NULL,"
+                + "DishType VARCHAR(16) NOT NULL,"
+                + "ValidDate BIGINT NOT NULL,"
                 + "Deleted BOOLEAN"
                 + ")");
-            this.Execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_dish_customerid_name ON Dish(CustomerId, Name, MenuLabel, Deleted)");
+            this.Execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_dish_name_type_date ON Dish(Name, DishType, ValidDate, Deleted)");
+        }
+
+        private void CreateTableOrder()
+        {
+            this.Execute("CREATE SEQUENCE IF NOT EXISTS Seq_Order_Id");
+
+            this.Execute(
+                "CREATE TABLE IF NOT EXISTS Orders"
+                + "("
+                + "Id BIGINT PRIMARY KEY DEFAULT NEXTVAL('Seq_Order_Id'),"
+                + "CustomerId BIGINT NOT NULL REFERENCES Customer(Id) ON DELETE CASCADE,"
+                + "DishId BIGINT NOT NULL REFERENCES Dish(Id) ON DELETE CASCADE,"
+                + "Count DOUBLE PRECISION NOT NULL,"
+                + "Deleted BOOLEAN"
+                + ")");
+            this.Execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_order_customerid_dishid ON Orders(CustomerId, DishId, Deleted)");
         }
 
         private void AddParam(NpgsqlCommand cmd, string name, long? value)
