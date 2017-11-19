@@ -8,7 +8,7 @@ using Npgsql;
 
 namespace BackendDatabase
 {
-    public sealed class Postgres : IDisposable
+    public sealed class Postgres : IDatabase, IDisposable
     {
         private string connectionString;    // Connection string with parameters
         private int maxAttempts;            // Max tries if it is connection problem

@@ -8,43 +8,39 @@ namespace BackendDatabase
     {
         void Initialize(ConnectionData data);
 
-        #region Products
+        #region Sessions
 
-        string CreateProduct(string product);
+        void CreateSesson(SessionData session, int maxSessionCount);
 
-        string UpdateProduct(string product);
+        SessionData GetSesson(string sessionToken);
 
-        string GetProducts();
-
-        string DeleteProduct(string product);
-
-        string GetProduct(long productId);
+        void DeleteSession(string sessionToken);
 
         #endregion
 
-        #region Orders
+        #region Customers
 
-        string CreateOrder(string order);
+        long CreateCustomer(CustomerData customer);
 
-        string GetOrders();
+        CustomerData GetCustomer(string login);
 
-        string DeleteOrder(string order);
+        List<CustomerData> GetCustomers();
 
-        string GetOrder(long orderId);
+        void DeleteCustomer(CustomerData customer);
 
         #endregion
 
-        #region Suppliers
+        #region Dishes
 
-        string CreateSupplier(string supplier);
+        long CreateDish(DishData dish);
 
-        string UpdateSupplier(string supplier);
+        void UpdateDish(DishData dish);
 
-        string GetSuppliers();
+        List<DishData> GetDishes(long customerId, long startDate, long endDate);
 
-        string DeleteSupplier(string supplier);
+        List<DishData> GetMenuDishes(long startDate, long endDate);
 
-        string GetSupplier(long supplierId);
+        void DeleteDish(DishData dish);
 
         #endregion
     }
