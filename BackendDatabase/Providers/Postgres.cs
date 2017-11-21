@@ -268,7 +268,7 @@ namespace BackendDatabase
         {
             DishData dish = null;
             this.Execute(
-                "SELECT Name,DishType,Date FROM Dish"
+                "SELECT Name,DishType,Price,Date FROM Dish"
                 + " WHERE Id=@p1 AND Deleted='F'",
                 cmd =>
                 {
@@ -281,7 +281,8 @@ namespace BackendDatabase
                             dish.Id = dishId;
                             dish.Name = this.GetParamString(reader, 0);
                             dish.DishType = this.GetParamString(reader, 1);
-                            dish.ValidDateEpochtime = this.GetParamLong(reader, 2);
+                            dish.Price = this.GetParamDouble(reader, 2);
+                            dish.ValidDateEpochtime = this.GetParamLong(reader, 3);
                         }
                     }
                 });
@@ -293,7 +294,7 @@ namespace BackendDatabase
         {
             List<DishData> dishes = new List<DishData>();
             this.Execute(
-                "SELECT Id,Name,DishType,Date FROM Dish"
+                "SELECT Id,Name,DishType,Price,Date FROM Dish"
                 + " WHERE Date>=@p1 AND Date<=@p2 AND Deleted='F'",
                 cmd =>
                 {
@@ -308,7 +309,8 @@ namespace BackendDatabase
                             dish.Id = reader.GetInt64(0);
                             dish.Name = this.GetParamString(reader, 1);
                             dish.DishType = this.GetParamString(reader, 2);
-                            dish.ValidDateEpochtime = this.GetParamLong(reader, 3);
+                            dish.Price = this.GetParamDouble(reader, 3);
+                            dish.ValidDateEpochtime = this.GetParamLong(reader, 4);
                             dish.Orders = this.GetOrders(customerId, dish.Id);
                             dishes.Add(dish);
                         }
@@ -468,6 +470,7 @@ namespace BackendDatabase
                 + "Id BIGINT PRIMARY KEY DEFAULT NEXTVAL('Seq_Dish_Id'),"
                 + "Name VARCHAR(64) NOT NULL,"
                 + "DishType VARCHAR(16) NOT NULL,"
+                + "Price DOUBLE PRECISION NOT NULL,"
                 + "ValidDate BIGINT NOT NULL,"
                 + "Deleted BOOLEAN"
                 + ")");

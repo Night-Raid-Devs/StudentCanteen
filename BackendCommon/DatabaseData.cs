@@ -97,6 +97,9 @@ namespace BackendCommon
         [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(MaxLength = 16)]
         public string DishType { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
+        public double? Price { get; set; }
+
         [DataMember(Name = "ValidDate", IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
         public long? ValidDateEpochtime { get; set; }
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <ConnectionData>
+        <Host>localhost</Host>
+        <Database>postgres</Database>
+        <User>postgres</User>
+        <ConnectionPoolSize>300</ConnectionPoolSize>
+        <Timeout>30</Timeout>
+        <MaxAttempts>3</MaxAttempts>
+        <Delay>1</Delay>
+  </ConnectionData>
+  <system.serviceModel>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="ServiceBehaviour">
+          <serviceMetadata httpGetEnabled="false" httpsGetEnabled="false" />
+          <serviceDebug includeExceptionDetailInFaults="true" />
+        </behavior>
+      </serviceBehaviors>
+      <endpointBehaviors>
+        <behavior name="rest">
+          <webHttp />
+        </behavior>
+        <behavior name="ws">
+        </behavior>
+      </endpointBehaviors>
+    </behaviors>
+    <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true" />
+    <services>
+      <service name="BackendAppServer.RestApiService" behaviorConfiguration="ServiceBehaviour">
+        <endpoint address="" behaviorConfiguration="rest" binding="webHttpBinding" contract="BackendAppServer.IRestApiService" />
+        <endpoint address="soap" behaviorConfiguration="ws" binding="wsHttpBinding" contract="BackendAppServer.IRestApiService" />
+        <host>
+          <baseAddresses>
+            <add baseAddress="http://localhost:8080" />
+          </baseAddresses>
+        </host>
+      </service>
+    </services>
+    <bindings>
+      <wsHttpBinding>
+        <binding maxReceivedMessageSize="65000" >
+          <readerQuotas maxDepth="65000" maxStringContentLength="65000" maxArrayLength="65000" maxBytesPerRead="65000" maxNameTableCharCount="65000" />
+          <security mode="None">
+            <message clientCredentialType="None"/>
+            <transport clientCredentialType="None"/>
+          </security>
+        </binding>
+      </wsHttpBinding>
+      <webHttpBinding>
+        <binding>
+          <security mode="None">
+            <transport clientCredentialType="None"/>
+          </security>
+        </binding>
+      </webHttpBinding>
+    </bindings>
+  </system.serviceModel>
+</configuration>
