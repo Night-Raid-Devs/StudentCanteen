@@ -11,9 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendAppServer", "Backend
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FrontendCommon", "FrontendCommon\FrontendCommon.shproj", "{B5B178B7-D103-4520-99D0-80D0C1BC1CC5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSite", "WebSite\WebSite.csproj", "{8EE86846-562E-401D-9E57-4DB5F4582613}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		BackendCommon\BackendCommon.projitems*{4d0a0522-b59e-44b6-8a2c-ab919eddbd79}*SharedItemsImports = 13
+		BackendCommon\BackendCommon.projitems*{8ee86846-562e-401d-9e57-4db5f4582613}*SharedItemsImports = 4
+		FrontendCommon\FrontendCommon.projitems*{8ee86846-562e-401d-9e57-4db5f4582613}*SharedItemsImports = 4
 		BackendCommon\BackendCommon.projitems*{a74136b3-7ca1-4ca7-a1b3-ca838bb73edc}*SharedItemsImports = 4
 		FrontendCommon\FrontendCommon.projitems*{b5b178b7-d103-4520-99d0-80d0c1bc1cc5}*SharedItemsImports = 13
 	EndGlobalSection
@@ -30,6 +34,10 @@ Global
 		{06C8B8FA-6EC4-465B-8F9E-6169C8AB7CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06C8B8FA-6EC4-465B-8F9E-6169C8AB7CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06C8B8FA-6EC4-465B-8F9E-6169C8AB7CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EE86846-562E-401D-9E57-4DB5F4582613}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EE86846-562E-401D-9E57-4DB5F4582613}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EE86846-562E-401D-9E57-4DB5F4582613}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EE86846-562E-401D-9E57-4DB5F4582613}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

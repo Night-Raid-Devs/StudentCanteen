@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <ConnectionData>
-        <Host>localhost</Host>
-        <Database>postgres</Database>
-        <User>postgres</User>
-        <ConnectionPoolSize>300</ConnectionPoolSize>
-        <Timeout>30</Timeout>
-        <MaxAttempts>3</MaxAttempts>
-        <Delay>1</Delay>
+    <Host>localhost</Host>
+    <Database>postgres</Database>
+    <User>postgres</User>
+    <ConnectionPoolSize>300</ConnectionPoolSize>
+    <Timeout>30</Timeout>
+    <MaxAttempts>3</MaxAttempts>
+    <Delay>1</Delay>
   </ConnectionData>
   <system.serviceModel>
     <behaviors>
@@ -20,11 +20,17 @@
       <endpointBehaviors>
         <behavior name="rest">
           <webHttp />
+          <CorsSupport />
         </behavior>
         <behavior name="ws">
         </behavior>
       </endpointBehaviors>
     </behaviors>
+    <extensions>
+      <behaviorExtensions>
+        <add name="CorsSupport" type="WebHttpCors.CorsSupportBehaviorElement, WebHttpCors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+      </behaviorExtensions>
+    </extensions>
     <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true" />
     <services>
       <service name="BackendAppServer.RestApiService" behaviorConfiguration="ServiceBehaviour">

@@ -36,7 +36,7 @@ namespace BackendAppServer
 
             try
             {
-                customer = DatabaseManager.Instance.GetCustomer(login.Trim());
+                customer = DatabaseManager.Instance.GetCustomer(login.Trim().ToLower());
                 if (!string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(customer.Password) && customer.Password == this.GetPasswordHash(password))
                 {
                     this.CreateSession(customer);
@@ -262,7 +262,7 @@ namespace BackendAppServer
 
             try
             {
-                customer = DatabaseManager.Instance.GetCustomer(login.Trim());
+                customer = DatabaseManager.Instance.GetCustomer(login.Trim().ToLower());
                 if (!session.IsAdmin() && session.CustomerId != customer.Id)
                 {
                     throw new WebFaultException<RestApiErrorMessage>(new RestApiErrorMessage("Нет прав"), HttpStatusCode.BadRequest);
@@ -370,7 +370,7 @@ namespace BackendAppServer
 
             if (customer.Login != null)
             {
-                customer.Login = customer.Login.Trim();
+                customer.Login = customer.Login.Trim().ToLower();
                 if (customer.Login.Length == 0)
                 {
                     throw new Exception("Не указан логин");
