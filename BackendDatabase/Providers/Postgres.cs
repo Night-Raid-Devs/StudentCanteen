@@ -362,9 +362,9 @@ namespace BackendDatabase
         {
             List<OrderData> orders = new List<OrderData>();
             string customerIdQuery = customerId != null ? " AND CustomerId=@p1" : string.Empty;
-            string dishIdQuery = customerId != null ? " AND DishId=@p2" : string.Empty;
+            string dishIdQuery = dishId != null ? " AND DishId=@p2" : string.Empty;
             this.Execute(
-                "SELECT Id,CustomerId,DishId,Count FROM Order"
+                "SELECT Id,CustomerId,DishId,Count FROM Orders"
                 + " WHERE Deleted='F'" + customerIdQuery + dishIdQuery,
                 cmd =>
                 {
