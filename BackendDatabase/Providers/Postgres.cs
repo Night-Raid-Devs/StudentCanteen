@@ -108,7 +108,7 @@ namespace BackendDatabase
                             session.SessionToken = sessionToken;
                             session.CustomerId = reader.GetInt64(1);
                             session.AccessRights = this.GetParamString(reader, 2);
-                            session.ExpirationDateEpochtime = this.GetParamLong(reader, 5);
+                            session.ExpirationDateEpochtime = this.GetParamLong(reader, 3);
                             session.Deleted = false;
 
                             return session;

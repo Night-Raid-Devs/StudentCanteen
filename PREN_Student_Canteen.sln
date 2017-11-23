@@ -13,6 +13,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FrontendCommon", "FrontendC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSite", "WebSite\WebSite.csproj", "{8EE86846-562E-401D-9E57-4DB5F4582613}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHttpCors", "WebHttpCors\WebHttpCors.csproj", "{9045E552-71C6-497F-9C91-97906155C233}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		BackendCommon\BackendCommon.projitems*{4d0a0522-b59e-44b6-8a2c-ab919eddbd79}*SharedItemsImports = 13
@@ -38,6 +40,10 @@ Global
 		{8EE86846-562E-401D-9E57-4DB5F4582613}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EE86846-562E-401D-9E57-4DB5F4582613}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EE86846-562E-401D-9E57-4DB5F4582613}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9045E552-71C6-497F-9C91-97906155C233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9045E552-71C6-497F-9C91-97906155C233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9045E552-71C6-497F-9C91-97906155C233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9045E552-71C6-497F-9C91-97906155C233}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
