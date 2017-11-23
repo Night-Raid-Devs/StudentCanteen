@@ -164,6 +164,41 @@ namespace BackendDatabase
                 });
         }
 
+        public CustomerData GetCustomer(long customerId)
+        {
+            CustomerData customer = new CustomerData();
+
+            this.Execute(
+                "SELECT Login,Password,AccessRights,FirstName,LastName"
+                + " FROM Customer WHERE Id=@p AND Deleted=false",
+                cmd =>
+                {
+                    this.AddParam(cmd, "p", customerId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            customer.Id = customerId;
+                            customer.Login = this.GetParamString(reader, 0);
+                            customer.Password = this.GetParamString(reader, 1);
+                            customer.AccessRights = this.GetParamString(reader, 2);
+                            customer.FirstName = this.GetParamString(reader, 3);
+                            customer.LastName = this.GetParamString(reader, 4);
+
+                            return;
+                        }
+
+                        throw new Exception(string.Format("Пользователя с id '{0}' не существует", customerId));
+                    }
+                });
+
+            DateTime currentMonday = this.GetCurrentWeekMonday();
+            customer.Orders = this.GetOrders(customer.Id);
+            
+            return customer;
+        }
+
         public CustomerData GetCustomer(string login)
         {
             CustomerData customer = new CustomerData();
@@ -195,7 +230,7 @@ namespace BackendDatabase
 
             DateTime currentMonday = this.GetCurrentWeekMonday();
             customer.Orders = this.GetOrders(customer.Id);
-            
+
             return customer;
         }
 

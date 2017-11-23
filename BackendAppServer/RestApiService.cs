@@ -255,18 +255,14 @@ namespace BackendAppServer
             this.CreateSession(customer);
         }
 
-        public CustomerData GetCustomer(string login)
+        public CustomerData GetCustomer()
         {
             UserSession session = this.GetUserSession();
             CustomerData customer;
 
             try
             {
-                customer = DatabaseManager.Instance.GetCustomer(login.Trim().ToLower());
-                if (!session.IsAdmin() && session.CustomerId != customer.Id)
-                {
-                    throw new WebFaultException<RestApiErrorMessage>(new RestApiErrorMessage("Нет прав"), HttpStatusCode.BadRequest);
-                }
+                customer = DatabaseManager.Instance.GetCustomer(session.CustomerId);
             }
             catch (Exception e)
             {

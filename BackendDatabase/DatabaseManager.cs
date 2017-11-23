@@ -63,6 +63,11 @@ namespace BackendDatabase
             return db.CreateCustomer(customer);
         }
 
+        public CustomerData GetCustomer(long customerId)
+        {
+            return db.GetCustomer(customerId);
+        }
+
         public CustomerData GetCustomer(string login)
         {
             return db.GetCustomer(login);
