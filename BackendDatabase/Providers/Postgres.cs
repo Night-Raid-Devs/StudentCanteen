@@ -303,7 +303,7 @@ namespace BackendDatabase
         {
             DishData dish = null;
             this.Execute(
-                "SELECT Name,DishType,Price,Date FROM Dish"
+                "SELECT Name,DishType,Price,ValidDate FROM Dish"
                 + " WHERE Id=@p1 AND Deleted='F'",
                 cmd =>
                 {
@@ -329,8 +329,8 @@ namespace BackendDatabase
         {
             List<DishData> dishes = new List<DishData>();
             this.Execute(
-                "SELECT Id,Name,DishType,Price,Date FROM Dish"
-                + " WHERE Date>=@p1 AND Date<=@p2 AND Deleted='F'",
+                "SELECT Id,Name,DishType,Price,ValidDate FROM Dish"
+                + " WHERE ValidDate>=@p1 AND ValidDate<=@p2 AND Deleted='F'",
                 cmd =>
                 {
                     this.AddParam(cmd, "p1", startDate);
