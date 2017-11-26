@@ -138,7 +138,7 @@ namespace WebHttpCors
 				else
 					property.Headers.Add("Access-Control-Allow-Headers", preflightRequest.RequestedHeaders + ", Accept");
 
-				property.Headers.Add("Access-Control-Allow-Methods", "*");
+				property.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 
 			}
 

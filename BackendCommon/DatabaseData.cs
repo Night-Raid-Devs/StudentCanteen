@@ -37,7 +37,7 @@ namespace BackendCommon
         public string AccessRights { get; set; }
 
         // When session expires (Epochtime)
-        [DataMember(Name = "ExpirationDate", IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsUpdatable = false)]
+        [DataMember(Name = "ExpirationDate", IsRequired = false, EmitDefaultValue = false), ColumnAttr(Name = "ExpirationDate", IsUpdatable = false)]
         public long? ExpirationDateEpochtime { get; set; }
 
         public DateTime? ExpirationDate
@@ -100,7 +100,7 @@ namespace BackendCommon
         [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
         public double? Price { get; set; }
 
-        [DataMember(Name = "ValidDate", IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
+        [DataMember(Name = "ValidDate", IsRequired = false, EmitDefaultValue = false), ColumnAttr(Name = "ValidDate")]
         public long? ValidDateEpochtime { get; set; }
 
         public DateTime? ValidDate
