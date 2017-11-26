@@ -98,7 +98,8 @@ namespace BackendDatabase
         }
 
         // Get Dishes with orders for customerId and dishId or only for dishId if customerId = null
-        public List<DishData> GetDishes(long? customerId, long startDate, long endDate)
+        // if startDate or endDate -> all orders which dishes have ValidDate within this range
+        public List<DishData> GetDishes(long? customerId, long? startDate, long? endDate)
         {
             return db.GetDishes(customerId, startDate, endDate);
         }
@@ -122,9 +123,9 @@ namespace BackendDatabase
             db.UpdateOrder(order);
         }
 
-        public List<OrderData> GetOrders(long? customerId = null, long? dishId = null)
+        public List<OrderData> GetOrders(long? customerId = null, long? dishId = null, long? startDate = null, long? endDate = null)
         {
-            return db.GetOrders(customerId, dishId);
+            return db.GetOrders(customerId, dishId, startDate, endDate);
         }
 
         public void DeleteOrder(OrderData order)

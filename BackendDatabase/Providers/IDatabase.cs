@@ -41,7 +41,7 @@ namespace BackendDatabase
         void UpdateDish(DishData dish);
 
         // Get Dishes with orders for customerId and dishId or only for dishId if customerId = null
-        List<DishData> GetDishes(long? customerId, long startDate, long endDate);
+        List<DishData> GetDishes(long? customerId, long? startDate, long? endDate);
 
         void DeleteDish(DishData dish);
 
@@ -53,7 +53,7 @@ namespace BackendDatabase
 
         void UpdateOrder(OrderData order);
 
-        List<OrderData> GetOrders(long? customerId = null, long? dishId = null);
+        List<OrderData> GetOrders(long? customerId, long? dishId, long? startDate, long? endDate);
 
         void DeleteOrder(OrderData order);
 

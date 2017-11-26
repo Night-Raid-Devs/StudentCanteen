@@ -17,10 +17,10 @@ namespace BackendAppServer
 {
     public class RestApiService : IRestApiService
     {
-        private static readonly string PasswordHashSalt = "made" + "_" + "by" + "_" + "Infocom" + "(c)";
+        private static readonly string PasswordHashSalt = "made" + "_" + "by" + "_" + "Ice" + "_" + "Company" + "(c)";
         private static readonly int MaxUserSessionCount = 5;        // Max active sessions per user
         private static readonly int MaxAdminSessionCount = 1;       // Max active sessions per admin/operator
-        private static readonly int MaxSessionLifeInMonths = 120;   // Life time of session in months
+        private static readonly int MaxSessionLifeInDays = 7;   // Life time of session in months
         private static Mutex sessionMutex = new Mutex();
         private static Dictionary<string, UserSession> sessionByToken = new Dictionary<string, UserSession>();
         private static Dictionary<long, HashSet<string>> sessionByCustomerId = new Dictionary<long, HashSet<string>>();
@@ -618,7 +618,7 @@ namespace BackendAppServer
             session.SessionToken = new string(Guid.NewGuid().ToString().Where(c => char.IsLetterOrDigit(c)).ToArray());
             session.CustomerId = customer.Id;
             session.AccessRights = customer.AccessRights;
-            session.ExpirationDateEpochtime = DateTime.Now.AddMonths(MaxSessionLifeInMonths).ToEpochtime();
+            session.ExpirationDateEpochtime = DateTime.Now.AddDays(MaxSessionLifeInDays).ToEpochtime();
 
             try
             {

@@ -192,9 +192,9 @@ namespace BackendDatabase
                         throw new Exception(string.Format("Пользователя с id '{0}' не существует", customerId));
                     }
                 });
-
-            DateTime currentMonday = this.GetCurrentWeekMonday();
-            customer.Orders = this.GetOrders(customer.Id);
+            var currentWeekMonday = this.GetCurrentWeekMonday();
+            customer.Orders =
+                this.GetOrders(customer.Id, null, currentWeekMonday.ToEpochtime(), currentWeekMonday.AddDays(7).ToEpochtime());
             
             return customer;
         }
@@ -227,9 +227,9 @@ namespace BackendDatabase
                         throw new Exception(string.Format("Пользователя с логином '{0}' не существует", login));
                     }
                 });
-
-            DateTime currentMonday = this.GetCurrentWeekMonday();
-            customer.Orders = this.GetOrders(customer.Id);
+            var currentWeekMonday = this.GetCurrentWeekMonday();
+            customer.Orders =
+                this.GetOrders(customer.Id, null, currentWeekMonday.ToEpochtime(), currentWeekMonday.AddDays(7).ToEpochtime());
 
             return customer;
         }
@@ -252,7 +252,7 @@ namespace BackendDatabase
                             customer.AccessRights = this.GetParamString(reader, 3);
                             customer.FirstName = this.GetParamString(reader, 4);
                             customer.LastName = this.GetParamString(reader, 5);
-                            customer.Orders = this.GetOrders(customer.Id);
+                            customer.Orders = this.GetOrders(customer.Id, null, null, null);
                             customers.Add(customer);
                         }
                     }
@@ -325,16 +325,25 @@ namespace BackendDatabase
         }
 
         // Get Dishes with orders for customerId and dishId or only for dishId if customerId = null
-        public List<DishData> GetDishes(long? customerId, long startDate, long endDate)
+        public List<DishData> GetDishes(long? customerId, long? startDate, long? endDate)
         {
             List<DishData> dishes = new List<DishData>();
+            string startDateQuery = startDate != null ? " AND ValidDate>=@p1" : string.Empty;
+            string endDateQuery = endDate != null ? " AND ValidDate<@p2" : string.Empty;
             this.Execute(
                 "SELECT Id,Name,DishType,Price,ValidDate FROM Dish"
-                + " WHERE ValidDate>=@p1 AND ValidDate<=@p2 AND Deleted='F'",
+                + " WHERE Deleted='F'" + startDateQuery + endDateQuery,
                 cmd =>
                 {
-                    this.AddParam(cmd, "p1", startDate);
-                    this.AddParam(cmd, "p2", endDate);
+                    if (startDate != null)
+                    {
+                        this.AddParam(cmd, "p1", startDate);
+                    }
+
+                    if (endDate != null)
+                    {
+                        this.AddParam(cmd, "p2", endDate);
+                    }
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -346,7 +355,7 @@ namespace BackendDatabase
                             dish.DishType = this.GetParamString(reader, 2);
                             dish.Price = this.GetParamDouble(reader, 3);
                             dish.ValidDateEpochtime = this.GetParamLong(reader, 4);
-                            dish.Orders = this.GetOrders(customerId, dish.Id);
+                            dish.Orders = this.GetOrders(customerId, dish.Id, null, null);
                             dishes.Add(dish);
                         }
                     }
@@ -393,14 +402,18 @@ namespace BackendDatabase
                 });
         }
 
-        public List<OrderData> GetOrders(long? customerId = null, long? dishId = null)
+        public List<OrderData> GetOrders(long? customerId, long? dishId, long? startDate, long? endDate)
         {
             List<OrderData> orders = new List<OrderData>();
             string customerIdQuery = customerId != null ? " AND CustomerId=@p1" : string.Empty;
             string dishIdQuery = dishId != null ? " AND DishId=@p2" : string.Empty;
+            string startDateQuery = startDate != null ? " AND ValidDate>=@p3" : string.Empty;
+            string endDateQuery = endDate != null ? " AND ValidDate<@p4" : string.Empty;
+            string dishDateQuery = (dishId == null && (startDate != null || endDate != null)) ?
+                " AND DishId=ANY(Select Id FROM Dish WHERE Deleted='F'" + startDateQuery + endDateQuery + ")" : string.Empty;
             this.Execute(
                 "SELECT Id,CustomerId,DishId,Count FROM Orders"
-                + " WHERE Deleted='F'" + customerIdQuery + dishIdQuery,
+                + " WHERE Deleted='F'" + customerIdQuery + dishIdQuery + dishDateQuery,
                 cmd =>
                 {
                     if (customerId != null)
@@ -411,6 +424,16 @@ namespace BackendDatabase
                     if (dishId != null)
                     {
                         this.AddParam(cmd, "p2", dishId);
+                    }
+
+                    if (startDate != null)
+                    {
+                        this.AddParam(cmd, "p3", startDate);
+                    }
+
+                    if (endDate != null)
+                    {
+                        this.AddParam(cmd, "p4", endDate);
                     }
 
                     using (var reader = cmd.ExecuteReader())
@@ -446,7 +469,7 @@ namespace BackendDatabase
                 result = result.AddDays(-1);
             }
 
-            return result;
+            return new DateTime(result.Year, result.Month, result.Day);
         }
 
         private void CreateTables()
