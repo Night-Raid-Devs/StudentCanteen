@@ -24,7 +24,7 @@ namespace BackendDatabase
 
         long CreateCustomer(CustomerData customer);
 
-        CustomerData GetCustomer(long customerId);
+        CustomerData GetCustomer(long customerId, bool isAdmin);
 
         CustomerData GetCustomer(string login);
 

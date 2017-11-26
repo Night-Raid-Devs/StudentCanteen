@@ -262,7 +262,7 @@ namespace BackendAppServer
 
             try
             {
-                customer = DatabaseManager.Instance.GetCustomer(session.CustomerId);
+                customer = DatabaseManager.Instance.GetCustomer(session.CustomerId, session.IsAdmin());
             }
             catch (Exception e)
             {

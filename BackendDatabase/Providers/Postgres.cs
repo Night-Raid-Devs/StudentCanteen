@@ -164,7 +164,7 @@ namespace BackendDatabase
                 });
         }
 
-        public CustomerData GetCustomer(long customerId)
+        public CustomerData GetCustomer(long customerId, bool isAdmin)
         {
             CustomerData customer = new CustomerData();
 
@@ -194,7 +194,7 @@ namespace BackendDatabase
                 });
             var currentWeekMonday = this.GetCurrentWeekMonday();
             customer.Orders =
-                this.GetOrders(customer.Id, null, currentWeekMonday.ToEpochtime(), currentWeekMonday.AddDays(7).ToEpochtime());
+                this.GetOrders(isAdmin ? (long?)null : customer.Id, null, currentWeekMonday.ToEpochtime(), currentWeekMonday.AddDays(7).ToEpochtime());
             
             return customer;
         }
@@ -444,7 +444,7 @@ namespace BackendDatabase
                             order.Id = reader.GetInt64(0);
                             order.CustomerId = reader.GetInt64(1);
                             order.DishId = reader.GetInt64(2);
-                            order.Count = this.GetParamLong(reader, 3);
+                            order.Count = this.GetParamDouble(reader, 3);
                             orders.Add(order);
                         }
                     }
