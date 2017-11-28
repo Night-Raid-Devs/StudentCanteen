@@ -67,6 +67,10 @@ namespace BackendAppServer
         [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "orders")]
         void UpdateOrders(List<OrderData> orders);
 
+        [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare, UriTemplate = "orders?start={startDate}&end={endDate}")]
+        List<OrderData> GetOrders(string startDate, string endDate);
+
         #endregion
     }
 }

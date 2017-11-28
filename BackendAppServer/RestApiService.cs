@@ -252,7 +252,7 @@ namespace BackendAppServer
                 throw new WebFaultException<RestApiErrorMessage>(new RestApiErrorMessage(e.Message), HttpStatusCode.BadRequest);
             }
 
-            this.CreateSession(customer);
+            ////this.CreateSession(customer);
         }
 
         public CustomerData GetCustomer()
@@ -448,8 +448,15 @@ namespace BackendAppServer
                 {
                     this.ValidateDishData(dish, session);
                     dish.Deleted = false;
-
-                    dishesIds.Add(DatabaseManager.Instance.CreateDish(dish));
+                    if (dish.Id == 0)
+                    {
+                        dishesIds.Add(DatabaseManager.Instance.CreateDish(dish));
+                    }
+                    else
+                    {
+                        DatabaseManager.Instance.UpdateDish(dish);
+                        dishesIds.Add(dish.Id);
+                    }
                 }
             }
             catch (Exception e)
@@ -533,6 +540,7 @@ namespace BackendAppServer
 
         #region Orders
 
+
         public List<long> CreateOrders(List<OrderData> orders)
         {
             UserSession session = this.GetUserSession();
@@ -562,7 +570,15 @@ namespace BackendAppServer
                     this.ValidateOrderData(order, session);
                     order.Deleted = false;
 
-                    ordersIds.Add(DatabaseManager.Instance.CreateOrder(order));
+                    if (order.Id == 0)
+                    {
+                        ordersIds.Add(DatabaseManager.Instance.CreateOrder(order));
+                    }
+                    else
+                    {
+                        DatabaseManager.Instance.UpdateOrder(order);
+                        ordersIds.Add(order.Id);
+                    }
                 }
             }
             catch (Exception e)
@@ -588,6 +604,31 @@ namespace BackendAppServer
             {
                 throw new WebFaultException<RestApiErrorMessage>(new RestApiErrorMessage(e.Message), HttpStatusCode.BadRequest);
             }
+        }
+
+        public List<OrderData> GetOrders(string startDate, string endDate)
+        {
+            UserSession session = this.GetUserSession();
+            List<OrderData> ordersList;
+            try
+            {
+                long startDateLong = Convert.ToInt64(startDate);
+                long endDateLong = Convert.ToInt64(endDate);
+                if (!session.IsAdmin())
+                {
+                    ordersList = DatabaseManager.Instance.GetOrders(session.CustomerId, null, startDateLong, endDateLong);
+                }
+                else
+                {
+                    ordersList = DatabaseManager.Instance.GetOrders(null, null, startDateLong, endDateLong);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new WebFaultException<RestApiErrorMessage>(new RestApiErrorMessage(e.Message), HttpStatusCode.BadRequest);
+            }
+
+            return ordersList;
         }
 
         public void ValidateOrderData(OrderData order, UserSession session)
