@@ -532,7 +532,6 @@ namespace BackendDatabase
                 + "ValidDate BIGINT NOT NULL,"
                 + "Deleted BOOLEAN"
                 + ")");
-            this.Execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_dish_name_type_date ON Dish(Name, DishType, ValidDate, Deleted)");
         }
 
         private void CreateTableOrder()
@@ -548,7 +547,6 @@ namespace BackendDatabase
                 + "Count DOUBLE PRECISION NOT NULL,"
                 + "Deleted BOOLEAN"
                 + ")");
-            this.Execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_order_customerid_dishid ON Orders(CustomerId, DishId, Deleted)");
         }
 
         private void AddParam(NpgsqlCommand cmd, string name, long? value)

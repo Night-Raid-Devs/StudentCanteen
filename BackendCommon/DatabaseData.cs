@@ -122,7 +122,7 @@ namespace BackendCommon
         [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsId = true, IsUpdateKey = true)]
         public long Id { get; set; }
 
-        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr(IsUpdateKey = true)]
+        [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
         public long? CustomerId { get; set; }
 
         [DataMember(IsRequired = false, EmitDefaultValue = false), ColumnAttr()]
