@@ -1,0 +1,1179 @@
+/*----------------------------------------------------------
+The base color for this template is #5c87b2. If you'd like
+to use a different color start by replacing all instances of
+#5c87b2 with your new color.
+----------------------------------------------------------*/
+/*PAGE*/
+body
+{
+    color: #414141;
+    background-color: #FFFFFF;
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-size: 14px; /*font-style: normal;        font-weight: normal;*/
+    line-height: 17px;
+}
+#menucontainer span {
+    margin: 0;
+    padding: 0 0 2px;
+    position: relative;
+    /*background: rgba(119, 222, 228, 0.61);
+    color: rgb(232, 34, 208);
+    border: 3px solid rgb(50, 235, 213);*/   
+    color: #3f3f3f;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.4em;
+    margin-right: 10px;
+    padding: 7px 50px;
+    text-align: right;
+}
+.pagebg
+{
+    padding: 0;
+    margin: 0;
+    background: #ffffff url("./css/Images/background.jpg") repeat-x fixed 0 top ;
+     /*background-attachment: fixed;*/ 
+}
+/*WRAPPER ОСНОВНОЙ РАЗМЕРНЫЙ БЛОК*/
+.wrapper
+{
+    margin: auto;
+    width: 96%;
+    min-width: 994px;
+    max-width: 1400px;
+    text-align: left;
+}
+/*TOPHEAD*/
+.tophead, .tophead .dleft, .tophead .dright
+{
+    height: 120px;
+}
+.tophead
+{
+    overflow: hidden;
+    background: #e2f8fe url("./css/Images/tophead_bg.png") repeat-x 0 0;
+}
+.wrapper.toppad>.tophead>.dleft
+{
+    background: url("./css/Images/tophead_left.jpg") no-repeat 0 0;
+    padding-left: 322px;
+    position: relative;
+}
+.tophead .dright
+{
+   background: rgba(0, 0, 0, 0) url("./css/Images/tophead_right.png") no-repeat scroll 100% 0;
+    padding-right: 5px;
+}
+/*Логотип*/
+h1.logo
+{
+    display: block;
+    width: 229px;
+    height: 106px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 7px;
+    left: 12px;
+}
+.tophead_i1
+{
+    height: 92px;
+    overflow: hidden;
+}
+.tophead_i2
+{
+    height: 25px;
+    padding-left: 80px;
+    padding-right: 6px;
+    position: relative;
+}
+
+/*Block info*/
+.tophead .blockinform, .tophead .blockinform .dleft, .tophead .blockinform .dright
+{
+    height: 83px;
+}
+.delbut
+{
+    border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px;
+    
+}
+.tophead .blockinform
+{
+   background: #e8f6fc url("./css/Images/blockinform.png") repeat-x scroll 0 -83px;
+    overflow: hidden;
+}
+.tophead .blockinform .dleft {
+    background: rgba(0, 0, 0, 0) url("./css/Images/blockinform.png") no-repeat scroll 0 0;
+    padding-left: 40px;
+}
+.tophead .blockinform .dright
+{
+    background: url("./css/Images/blockinform.png") no-repeat 100% -166px;
+    padding-right: 10px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.blockinform .bicont
+{
+    padding-top: 0px;
+    color: #537386;
+}
+
+.blockinform .bicont h3
+{
+    color: #478bb2;
+}
+
+.blockinform .settings
+{
+    float: right;
+    width: 200px;
+    line-height: 13px;
+    font-size: 0.9em;
+    text-align: right;
+    padding-top: 7px;
+    color: #537386;
+}
+.headernews
+{
+    font-size: 16px;
+}
+
+a:link
+{
+    color: #3F3F3F;
+    text-decoration: underline;
+}
+a:visited
+{
+    text-decoration: underline;
+}
+a:hover
+{
+    color: #3F3F3F;
+    text-decoration: underline;
+}
+a:active
+{
+    color: #3F3F3F;
+    text-decoration: underline;
+}
+
+p, ul
+{
+    margin-bottom: 20px;
+    line-height: 1.6em;
+}
+
+/* HEADINGS
+----------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6
+{
+    font-size: 1.5em;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1
+{
+    font-size: 2em;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+h2
+{
+    padding: 0 0px 10px 0;
+}
+h3
+{
+    font-size: 1.2em;
+}
+h4
+{
+    font-size: 1.1em;
+}
+h5, h6
+{
+    font-size: 1em;
+}
+
+/* this rule styles <h2> tags that are the
+first child of the left and right table columns */
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
+{
+    margin-top: 0;
+}
+
+/* PRIMARY LAYOUT ELEMENTS
+----------------------------------------------------------*/
+
+/* you can specify a greater or lesser percentage for the
+page width. Or, you can specify an exact pixel width. */
+.page
+{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.navlink a
+{
+    vertical-align:bottom;
+}
+.navlink
+{
+    line-height: 2em;
+    vertical-align: bottom;
+    font-size: 22px;
+    text-decoration: none;
+    color: #537386;
+    padding-left: 10px;
+   /* display:inline;*/
+}
+#header
+{
+    width: 100%;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    margin-bottom: 0px;
+    color: #000;
+    padding: 0;
+}
+
+#header h1
+{
+    font-weight: bold;
+    padding: 5px 0;
+    margin: 0;
+    color: #fff;
+    border: none;
+    line-height: 0.75em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 32px !important;
+}
+
+.page .main_content
+{
+    width:98%;
+    margin-left: auto;
+    margin-right: auto;
+    _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
+}
+.main_content_background
+{
+    background-color: rgba(247, 251, 253, 0);
+    width: 99%;
+    padding-bottom: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    display: table;
+}
+.page .dleft
+{
+    background: url("./css/Images/left_border.png") repeat-y 0 0;
+    width: 100%;
+    height: 100%;
+    padding-right: 0px;
+}
+.page .dright
+{
+    background: url("./css/Images/right_border.png") repeat-y right;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+}
+#footer
+{
+    background: url("./css/Images/footer.png") repeat 0 0;
+    color: #999;
+    padding: 10px 0;
+    text-align: center;
+    line-height: normal;
+    margin: 0;
+    font-size: .8em;
+}
+
+/* TAB MENU
+----------------------------------------------------------*/
+ul#menu
+{
+    padding: 0 0 2px;
+    position: relative;
+    margin: 0;
+    text-align: right;
+}
+
+ul#menu li
+{
+    display: inline;
+    list-style: none;
+}
+
+ul#menu li#greeting
+{
+    padding: 10px 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.6em;
+    color: #fff;
+}
+
+ul#menu li a
+{
+    font-size: 16px;
+    padding: 7px 10px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 1.4em;
+    margin-right: 10px;
+    color: #3F3F3F;
+}
+
+ul#menu li a:hover
+{
+    background-color: #9CCBDE;
+    color: white;
+    text-decoration: none;
+}
+
+ul#menu li a:active
+{
+    background-color: #9CCBDE;
+    text-decoration: none;
+}
+
+ul#menu li.selected a
+{
+    background-color: #fff;
+    color: #000;
+}
+
+#submenu
+{
+    background: url("./css/Images/submenu.png") repeat 0 0;
+    width: 99%;
+    height: 45px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* FORM LAYOUT ELEMENTS
+----------------------------------------------------------*/
+
+fieldset
+{
+    margin: 1em 0;
+    padding: 1em;
+    border: 1px solid #CCC;
+}
+
+fieldset p
+{
+    margin: 2px 12px 10px 10px;
+}
+
+legend
+{
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 8px 4px;
+}
+
+input[type="text"]
+{
+    /*width: 150px;
+    border: 1px solid #CCC;*/
+}
+
+input[type="password"]
+{
+    width: 150px;
+    border: 1px solid #CCC;
+}
+
+/* TABLE
+----------------------------------------------------------*/
+
+table
+{
+    border: solid 0px #e8eef4;
+    border-collapse: collapse;
+}
+
+
+
+td.orderquant{
+    padding: 0px; /* border: solid 1px #e8eef4; */
+    /*-moz-min-width: 50px;
+    -ms-min-width: 50px;
+    -o-min-width: 50px;
+    -webkit-min-width: 50px;
+    min-width: 50px;*/   
+    text-align: center;
+}
+.orderquant select.input-small{
+    width: 43px;
+}
+
+td.weekmenu div{
+    padding: 5px; /* border: solid 1px #e8eef4; */
+    /*-moz-min-height: 30px;
+    -ms-min-height: 30px;
+    -o-min-height: 30px;
+    -webkit-min-height: 30px;
+    min-height: 30px;*/
+    white-space: nowrap;
+    max-width: 500px;
+}
+.menu_hover{
+    white-space: normal;
+    background: #a6f4db url("./css/Images/sprite.png") repeat-x scroll 0 -752px !important;
+    border-color: #a7bac5;    
+    padding: 0;
+    margin: 0;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-weight: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-collapse: separate;
+    empty-cells: show;
+}
+
+table th
+{
+    padding: 6px 5px;
+    text-align: left;
+    /*background-color: #D8EBF4;*/
+    border: solid 1px #e8eef4;
+}
+.menucontainer
+{
+    border-style: none;
+    border-color: inherit;
+    border-width: 0px;
+    width: 100%;
+    text-align: left;
+}
+/* MISC
+----------------------------------------------------------*/
+.clear
+{
+    clear: both;
+}
+
+.error
+{
+    color: Red;
+}
+
+div#title
+{
+    display: block;
+    float: left;
+    text-align: left;
+}
+
+#logindisplay
+{
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    margin: 10px;
+    color: White;
+}
+
+#logindisplay a:link
+{
+    color: white;
+    text-decoration: underline;
+}
+
+#logindisplay a:visited
+{
+    color: white;
+    text-decoration: underline;
+}
+
+#logindisplay a:hover
+{
+    color: white;
+    text-decoration: none;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+.display-label, .display-field, .editor-field
+{
+    margin: 0.5em 0;
+    font-size:12px;
+    
+}
+
+.editor-label
+{
+    font-weight:bold;    
+}
+
+.text-box
+{
+    width: 30em;
+}
+
+.text-box.multi-line
+{
+    height: 6.5em;
+}
+
+.tri-state
+{
+    width: 6em;
+}
+
+.project_left_info
+{
+    font-size: 12px;
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-weight: bold;
+    color: #3F3F3F;
+    padding-left: 20px;
+    margin-right: auto;
+    width: 80%;
+}
+
+.head-template
+{
+    font-weight: bold;
+}
+
+.t-button-custom
+{ 
+    border-color: #A7BAC5;
+    border-style: solid;
+    border-width: 1px;
+    border-collapse: separate;
+    background: url("./css/Images/sprite.png") repeat-x scroll 0 -96px #E8E8E8;
+    
+    color: #627A9D;
+    cursor: pointer;
+    display: inline-block;
+    empty-cells: show;
+    
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    font-weight: bold;
+    font-size:12px;
+   
+    line-height: 1.453;
+   
+    -moz-padding-end: 6px;
+    -moz-padding-start: 6px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    
+    margin: 0 0.2em;
+    min-width: 64px;
+    
+    padding-right: 8px;
+    padding: 2px 6px;
+    text-align: center;
+}
+
+
+.t-grid td a
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif; 
+    color: #627A9D;
+    font-weight: bold;
+}
+.t-grid td button
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif; 
+    color: #627A9D;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.t-grid td
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif; 
+    font-size:12px;
+   
+}
+.wrapper td label
+{
+    text-align:right;
+    
+ }
+    
+*:first-child+html .t-grid td {
+    padding-right:0px;
+    padding-left: 0px;
+}
+
+.t-grid th a
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    font-weight: bold;
+}
+
+.logOnGreeting
+{
+    /*font-size: 20px;*/
+    padding: 30px 30px;
+    top: 20px;
+    font-style: italic;
+    /*color: #CC7C12;*/
+    white-space: nowrap;
+}
+
+.date.form-control {
+    background: transparent;
+    font-size: 12px;
+}
+/*Project Overview ----------------- */
+
+.project-edit-form
+{
+    width:1000px;   
+}
+
+.project-edit-form table
+{
+    width:100%;
+}
+
+
+.project-edit-form-left-cell
+{
+    width: 65%;
+}
+.project-edit-form-right-cell
+{
+    width: 45%;
+}
+
+/*Project Overview ----------------- */
+.project-edit-form-contract td label
+{
+	font-family: Tahoma,Verdana,Arial,sans-serif;
+    font-weight:bold;
+    margin: 0px ;
+    font-size:12px;
+}
+
+.project-edit-form-contract td input, textarea
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    border:1px solid #CCC;
+    margin: 0;
+    font-size:12px;
+    width:60px;
+}
+
+.project-overview-edit-form
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+   /* width:450px;*/   
+}
+
+.project-overview-edit-form table
+{
+    width:100%;
+}
+
+.project-overview-edit-form select
+{
+    width:100%;
+    border:1px solid #CCC;
+}
+
+/*Project Detail ----------------- */
+.project-detail-edit-form
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    width:450px;   
+}
+.project-detail-edit-form table
+{
+    width:100%;
+}
+
+.project-detail-edit-form-left-cell
+{
+    width: 60%;
+}
+.project-detail-edit-form-right-cell
+{
+    width: 40%;
+}
+
+.project-detail-edit-form-sides
+{
+    width:45%;
+}
+
+.project-detail-edit-form-sides label
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    font-weight:bold;
+    font-size:12px;
+}
+
+.project-detail-edit-form select
+{
+    width:100%;
+    border:1px solid #CCC;
+}
+
+.project-detail-edit-form span
+{
+	font-weight:bold;
+	color: Red;
+}
+
+.project-detail-edit-form-cell-empty
+{
+    width: 10%;
+}
+
+.project-detail-edit-text-aria
+{
+	height:80px;
+}
+
+/* RequestEditor ---------*/
+.request-edit-contract-form input[type="text"]
+{
+	 width: 355px;
+}
+/* General ---------*/
+
+.edit-form td label, label
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    font-weight:bold;
+    margin: 0px ;
+    font-size:12px;
+}
+
+.edit-form td input, textarea
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    border:1px solid #CCC;
+    margin: 0;
+    font-size:12px;
+    width:100%;
+    
+}
+
+.edit-form td span
+{
+     font-family: Tahoma,Verdana,Arial,sans-serif;
+     font-size:12px;
+     font-weight:bold;   
+}
+    
+.edit-form td textarea
+{
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    height:52px;
+    width:100%;
+}
+
+.footer-description label
+{
+    font-size:12px;
+    margin-left:6px; 
+    font-weight:bold;  
+    font-family: Tahoma,Verdana,Arial,sans-serif; 
+}
+
+.footer-description textarea
+{
+   /*  margin-left:6px;*/
+   width:98%;
+}
+
+.t-grid-header
+{
+	height:25px; 
+	text-align:center;
+}
+                
+.t-grid-header a 
+{
+	text-decoration:none;
+	color:Black;
+	font-weight:bold;
+}
+
+.t-grid-timeregistration td
+{
+	font-weight:bold;
+}
+
+.timeregistration-editing
+{
+	font-weight:bold;	
+	font-size:14px;
+}
+.timeregistration-editing-title
+{
+	width:55px;
+}
+.timeregistration-editing-value
+{
+	width:250px;
+}
+.timeregistration-editing-zerovalue
+{
+	text-align:right;
+	color:Gray;
+}
+.timeregistration-editing-nonzerovalue
+{
+	text-align:right;
+}
+.timeregistration-timesheet-title
+{
+	font-size:16px;
+	font-weight:bold;
+}
+.timeregistration-editing-timesheet
+{
+	text-align:right;
+	color: #A42225;
+}
+.t-grid .t-grid-header .t-header,
+.t-grid .t-grid-header .t-last-header {
+    white-space: normal;
+}
+.t-grid .t-grid-header .t-header .t-link {
+    height: auto;
+}
+
+.t-weekend{
+background-color:#F7EEEE;
+}
+.t-alt .t-weekend{
+background-color:#F7E1E1;
+}
+.t-grid .t-header-weekend
+{
+border-color:#a7bac5;
+/*background:#f3a7c3 url('Images/grid-weekend-column.png') repeat-x 0 0px;*/
+}
+
+.t-footer-template .t-weekend
+{
+background-color: #E5D5E5;
+}
+.input-group.date input[type=text] {
+    background-color: rgba(200, 236, 245, 0.51)
+}
+#titleID, #foodsID {
+    /*width: 450px;*/
+}
+#pagePrev, #pageNext {
+    border-color: #91E4A4;
+    -webkit-user-select: none;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: none;
+    background-origin: padding-box;
+    background-size: auto;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-image-outset: 0px;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-style: solid;
+    border-left-width: 2px;
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-top-style: solid;
+    border-top-width: 2px;
+    box-sizing: border-box;
+    color: rgb(21, 218, 129);
+    cursor: pointer;
+    display: inline-block;
+    font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 50px;
+    font-weight: normal;
+    height: 70px;
+    line-height: 57.1429px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+    padding-bottom: 7px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 7px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transition-delay: 0s;
+    transition-duration: 0.3s;
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 70px;
+}
+#pagePrev:focus{
+    outline-offset: -2px;
+}
+.btn-circle i.animated {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.btn-circle {
+    border-radius: 100%!important;
+    background: 0 0;
+    -webkit-transition: background 1.3s ease-in-out;
+    -moz-transition: background 1.3s ease-in-out;
+    transition: background 1.3s ease-in-out;
+}
+.btn-circle:hover, .btn-circle:focus {
+    /*outline: 0;
+    outline-color: initial;
+    outline-style: initial;
+    outline-width: 0px;
+    color: #fff;
+    background: rgba(255,255,255,.1);*/
+}
+a:hover,
+a:focus {
+    text-decoration: none;
+    color: #1d9b6c;
+}
+.btn-circle:hover,
+.btn-circle:focus {
+    /*outline: 0;
+    color: #fff;
+    background: rgba(255,255,255,.1);*/
+}
+
+.btn-circle i.animated {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+}
+
+.btn-circle:hover i.animated {
+    -webkit-animation-name: pulse;
+    -moz-animation-name: pulse;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+}
+
+@-webkit-keyframes pulse {    
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@-moz-keyframes pulse {    
+    0% {
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -moz-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+
+    100% {
+        -moz-transform: scale(1);
+        transform: scale(1);
+    }
+}
+div.disabled > .btn-circle:hover{
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+}
+select.input-small {
+    padding: 0
+}
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+     margin:0;
+    border-radius: 4px;
+}
+.btn-default.active {
+    background-color: #6CEDD5;
+}
+.modal-body {
+    font-size: 18px;
+    color: #436A73;;
+}
+.modal-body input {
+    margin-top: 15px;
+    -moz-min-width: 350px;
+    -ms-min-width: 350px;
+    -o-min-width: 350px;
+    -webkit-min-width: 350px;
+    min-width: 350px;
+}
+
+.modal-body th {
+     color: darkcyan;
+ }
+#searchItems, #allowDebt {
+    display: inline-flex;
+    padding: 5px;
+}
+#allowDebt span {
+    white-space: nowrap;
+}
+ #searchItems > * {
+     padding: 5px;
+ }
+ #submenu ul{
+     list-style: none;
+     display: flex;
+ }
+ #submenu ul li{
+    float: left;
+    position: relative;
+ }
+ 
+ .modal-content {
+    background-color: #e2f8fe;
+    width: 650px;
+ }
+ .glyphicon {
+     padding: 3px;
+ }
+ #logForm .row{
+     margin-bottom: 100px;
+     margin-top: 55px;
+ }
+.thvert {
+    /*background-color: grey;
+    color: white;*/
+    text-align: center;
+    vertical-align: bottom;
+    height: 120px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.verticalText {
+    text-align: center;
+    vertical-align: middle;
+    width: 20px;   
+    margin-top: 100px;
+    font-weight: bold;
+    /*margin: 0px;
+    padding: 0px;*/
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 10px;
+    white-space: nowrap;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+}
+#dishDesc {
+    min-height: 275px;
+}
+#dishDesc label {
+    padding: 5px;
+    font-size: 15px;
+}
+.ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+    display: inline-block !important;
+}
+tr.allowedit {
+    background-color: #f48aa5 !important;
+    font-size: 15px;
+    color: #000080;
+}
+#ordesTable td>input[type="text"] {
+    width: 60px;
+}
+#orderquant >select {
+    width: 60px !important;
+}
+.overlimit {
+    background-color: #f15e78  !important;  
+      border: 2px solid black !important;
+}
+.overlimit td {
+    border: 1px black solid !important;
+    font-size: 16px !important;
+    color: black !important;
+}
+#allowEdit {
+    display: inline-flex;
+}
+.rightBorder {
+    border-right: 2px black solid !important;
+}

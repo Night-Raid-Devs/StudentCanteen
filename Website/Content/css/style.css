@@ -1,0 +1,263 @@
+/*
+Theme Name: Worthy - Free Powerful Theme by HtmlCoder
+Author:HtmlCoder
+Author URI:http://www.htmlcoder.me
+Version:1.0.0
+Created:November 2014
+License: Creative Commons Attribution 3.0 License (https://creativecommons.org/licenses/by/3.0/)
+File Description: Place here your custom CSS styles
+*/
+
+button.paginate_button.active {
+    background-color: #b4e12f;
+    color: #0c1d4d;
+}
+span.changesaved {
+    background-color: #dc8648;
+    color: #183ca0;
+}
+#curweek, .btnaddmenu {
+   border-color: #a7bac5;
+    color: #333;
+    font-family: "Segoe UI",Arial,sans-serif;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 100%;
+    line-height: 1.435;
+    margin: 10px;
+    padding: 2px 6px;
+    text-align: center;
+}
+.btnaddmenu:hover {
+    background: #d1d1d1 url("./Images/sprite.png") repeat-x scroll 0 -560px;
+}
+.t-label {
+    /*background: #000000 url("./Images/submenu.png") repeat scroll 0 0;*/
+    height: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 99%;
+}
+.navlink {
+    white-space: nowrap;
+    color: #537386 !important;
+    font-size: 22px;
+    line-height: 2em;
+    padding-left: 10px;
+    text-decoration: none;
+    vertical-align: bottom;
+    /*font-size: 18px; 
+    color: whitesmoke; 
+    padding: 7px; 
+    -ms-border-radius: 5px;
+     border-radius: 5px*/
+}
+
+.disabled {
+    background-color: #a6d9f4 !important;
+    color: #ffffff;
+}
+#wnDysplay {
+    color: #266ee1;
+    font-size: 18px;
+    /*padding: 10px 5px;*/
+    border: 3px solid #32ebd5;
+    border-radius: 5px;
+}
+  th.rotate {
+    white-space: nowrap;
+    -webkit-transform-origin: 65px 60px;
+    -moz-transform-origin: 65px 60px;
+    -o-transform-origin: 65px 60px;
+    -ms-transform-origin: 65px 60px;
+    transform-origin: 65px 60px;
+    
+	-webkit-transform: rotate(270deg);
+	-moz-transform: rotate(270deg);
+	-ms-transform: rotate(270deg);
+	-o-transform: rotate(270deg);
+	transform: rotate(270deg);
+	/*display:inline-block;*/
+	/*height:30px;*/
+	/*float:left;*/
+	/*width:30px;*/
+    text-align: left;   
+    vertical-align: top !important;
+}
+span.intact {
+	display:inline-block;
+	width:30px;
+	height:120px;
+    background-color: #DAF0FD;
+}
+
+span.intact_last {
+    display: inline-block;
+    margin-left: -130px;
+    margin-top: -250px;
+    background-color: #DAF0FD;
+}
+td.lastTD > span,td.lastTD > input{
+    display: inline-block;   
+     width: 100%;
+    text-align: right;
+}
+th.rotate span {
+	/* rotated text in IE renders very bad (unless you use clear type), so that even by making it normal, looks less bold but still bold */
+    font-weight: normal; /* \9 is an hack for IE8 and below */
+    /*letter-spacing: 3px;*/ /* because is so bold, need to give letters some space to breath */
+
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=0, M12=1, M21=-1, M22=0, SizingMethod = "auto expand");
+    width: 30px;
+    height: 140px;
+    margin-right: -130px;
+    background-color: rgba(218, 240, 253, 0);
+}
+
+td.menuItems {
+	width: 240px;
+}
+td.no-indent {
+	font-weight: bold;
+}
+td.indent {
+	padding-left:12px;
+}
+td.rights {
+	width:20px;
+    text-align: left;
+    white-space: nowrap;
+}
+div.panel.panel-default > table {
+    width: 100%;
+    background-color: #DAF0FD;
+}
+/*#ordersObject {
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+}*/
+div.panel.panel-default > table {
+    width: 100%;
+    background-color: rgb(236, 245, 249);
+}
+#ordersObject div.panel.panel-default > table th, #ordersObject div.panel.panel-default > table td:not(:nth-child(2)) {
+    padding: 2px;
+    font-size: 14px !important;
+    height: 30px !important;
+    vertical-align: middle !important;
+    /*min-width: 45px;*/
+    /*-moz-min-width: 60px;
+    -ms-min-width: 60px;
+    -o-min-width: 60px;
+    -webkit-min-width: 60px;
+    min-width: 60px;*/
+}
+#paimentsObject  div.panel.panel-default > table td:not(:nth-child(2)), #paimentsObject  div.panel.panel-default > table th {
+    padding: 2px;
+    /*font-size: 14px !important;*/
+    height: 30px !important;
+    text-align: center;
+    vertical-align: middle !important;
+    /*min-width: 45px;*/
+    /*-moz-min-width: 52px;
+    -ms-min-width: 52px;
+    -o-min-width: 52px;
+    -webkit-min-width: 52px;
+    min-width: 52px;*/
+}
+
+#paimentsObject, #ordersObject{   
+    /*padding-left: 5px!important;*/
+    padding-right: 15px !important;
+    font-size: 11px;
+}
+/*#menucontainer > ul > li  {
+    background-color: aquamarine
+}
+#menucontainer > ul > li.active-menu  {
+    background-color: aquamarine
+}*/
+/*.menu {list-style:none;}
+.menu > li {float: left;}*/
+.nav.navbar-nav>li{ display: inline-block;}
+.nav.navbar-nav>li >a {color:#555;float: none;padding: 10px 16px 11px;}
+.nav.navbar-nav>li >a:hover {color: #F95700; background-color: rgba(0, 0, 0, 0)}
+.nav.navbar-nav>li.active > a, .nav.navbar-nav>li.active > a:hover {color:#F95700;}
+
+table th,table td {
+    text-align: right;
+    padding: 2px;
+}
+#updateTable td{
+    
+    vertical-align: middle;
+    text-align: left;
+}
+
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+      padding: 0;
+    max-height: none;
+      background: transparent;
+  }
+
+    .sidebar-nav .navbar ul {
+    float: none;
+    display: block;
+      background: transparent;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .navbar-default {
+      background: transparent;
+  }
+}
+.t-header {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 0.3em 0.6em !important;
+    text-overflow: ellipsis;
+    /*text-align: left;*/
+    white-space: normal;
+    background: #a6d9f4 url("./Images/sprite.png") repeat-x scroll 0 -752px !important;
+    border-color: #a7bac5;    
+    border-collapse: separate;
+    empty-cells: show;
+    line-height: 17px !important;  
+    vertical-align: middle !important;
+    text-align: center !important;
+    height: 50px;
+}
+.t-header span {
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    font-weight: bold;   
+    color: Black;
+    font-size: 13px;
+}
+.footheader {
+    background: #a6d9f4 url("./Images/sprite.png") repeat-x scroll 0 -752px !important;
+    border-color: #a7bac5;    
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    font-weight: normal;
+    vertical-align: middle !important;
+    text-align: center !important;
+    border-color: #a7bac5;    
+    border-collapse: separate;
+}
+select.input-small{
+	with: 50px;
+}

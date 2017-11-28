@@ -1,0 +1,1126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>
+
+        Работа столовой
+
+    </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=IE8"/>
+    <link href="./Content/themes/Cupertino/jquery-ui.min.css" rel="stylesheet"/>
+<link href="./Content/themes/Cupertino/jquery-ui.structure.min.css" rel="stylesheet"/>
+<link href="./Content/themes/Cupertino/jquery-ui.theme.min.css" rel="stylesheet"/>
+<link href="./Content/bootstrap.css" rel="stylesheet"/>
+<link href="./Content/Site.css" rel="stylesheet"/>
+<link href="./Content/css/style.css" rel="stylesheet"/>
+<link href="./Content/checkbox.css" rel="stylesheet"/>
+<link href="./Content/jquery.loading-indicator.css" rel="stylesheet"/>
+
+    
+<script src="./Scripts/jquery-2.1.4.min.js"></script>
+<script src="./Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="./Scripts/jquery-ui-cup.min.js"></script>
+<script src="./Scripts/moment.js"></script>
+<script src="./Scripts/bootstrap.min.js"></script>
+<script src="./Scripts/bootstrap-datetimepicker.js"></script>
+<script src="./Scripts/knockout-3.2.0.js"></script>
+<script src="./Scripts/knockout.mapping-latest.debug.js"></script>
+<script src="./Scripts/knockout-bootstrap.min.js"></script>
+<script src="./Scripts/jquery.loading-indicator.js"></script>
+    
+<link href="./jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
+</head>
+<body class="pagebg">
+    <div class="wrapper toppad">
+        <div class="tophead">
+            <div class="dleft">
+                <div class="dright">
+                    <h1 class="logo">
+                        <a href="">
+<!--                             <img style="border: 0" src="./Content/css/Images/Infocom.png" title="Инфоком ЛТД" alt="Инфоком ЛТД" /> -->
+                        </a>
+                    </h1>
+                    <div class="tophead_i1">
+                        <div class="blockinform">
+
+                            <div class="dleft">
+                                <div class="dright">
+                                    <div class="logOnGreeting">
+                                        <div style="text-align: right;">
+                                                <span id="CustomerName"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menucontainer"><span></span>
+                    <div id="infoTitle"></div></div>
+                    </div>
+                
+            </div>
+        </div>
+        <div class="page">
+            <div class="dleft">
+                <div class="dright">
+
+
+                            
+
+    <div id="submenu">
+        <table class="table table-responsive">
+           <tbody>
+            <tr>
+                <td class="navlink" data-bind="text: CurNextTitle"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-3 ">
+					<div id="datepicker"></div>
+                    <div class="input-group date form-control" id="redUser">
+                        <button id="RegUserBtn" class="btn glyphicon" onclick="registerUser()" type="button" style="visibility: hidden;"><span class="glyphicon">Зарегистрировать пользователя</span></button>
+                    </div>
+                </div>
+                <div class="col-sm-9  object-non-visible" data-animation-effect="fadeIn">
+                    <div class="panel panel-default" id="mfwPanel">
+
+                        <table class="table table-striped table-bordered table-responsive table-condensed table-hover" id="updateTable" style="max-height: 700px;">
+                            <thead>
+                                <tr>
+                                    <th class="t-header col-sm-1"><span>День недели</span></th>
+                                    <th class="t-header col-sm-2"><span>Категория блюда</span></th>
+                                    <th class="t-header col-sm-7"><span>Название</span></th>
+                                    <th class="t-header col-sm-1"><span id="orderLabel">Заказать</span>
+                                    </th>
+                                    <th class="t-header col-sm-2" colspan="2"><span>Стоимость</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td colspan="6" class="t-header">
+                                    <div id="allowEdit">
+
+                                        <span data-bind=" text: 'Подтвердить заказ'" style="padding: 5px; white-space: nowrap">Подтвердить заказ</span>
+                                        <button type="button" class="btn  btn-xs btn-warning btn-circle" onclick="toggleEdit()">
+                                            <span class="glyphicon glyphicon-save"></span>
+                                        </button>
+    
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="vertical-align: middle; text-align: center">
+                                    <span data-bind="text: DayName">Понедельник</span>
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid; text-align: right;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Первое : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Второе : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Салат : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Напиток : </span>
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+
+                                </td>
+                                <td style="vertical-align: middle; text-align: center;" data-bind="click: function(){$root.checkallowedit($data.OrderCanByChanged());}">
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right">
+
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right; vertical-align: middle; height: 100%">
+                                    <span class="dayOrderSummary">0.00</span>
+                                </td>
+
+                            </tr>
+                            
+                            <tr>
+                                <td style="vertical-align: middle; text-align: center">
+                                    <span data-bind="text: DayName">Вторник</span>
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Первое : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Второе : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Салат : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Напиток : </span>
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+
+                                </td>
+                                <td style="vertical-align: middle; text-align: center;" data-bind="click: function(){$root.checkallowedit($data.OrderCanByChanged());}">
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right">
+
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right; vertical-align: middle; height: 100%">
+                                    <span class="dayOrderSummary">0.00</span>
+                                </td>
+
+                            </tr>
+                            
+                            <tr>
+                                <td style="vertical-align: middle; text-align: center">
+                                    <span data-bind="text: DayName">Среда</span>
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Первое : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Второе : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Салат : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Напиток : </span>
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+
+                                </td>
+                                <td style="vertical-align: middle; text-align: center;" data-bind="click: function(){$root.checkallowedit($data.OrderCanByChanged());}">
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right">
+
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right; vertical-align: middle; height: 100%">
+                                    <span class="dayOrderSummary">0.00</span>
+                                </td>
+
+                            </tr>
+                            
+                            <tr>
+                                <td style="vertical-align: middle; text-align: center">
+                                    <span data-bind="text: DayName">Четверг</span>
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Первое : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Второе : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Салат : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Напиток : </span>
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+
+                                </td>
+                                <td style="vertical-align: middle; text-align: center;" data-bind="click: function(){$root.checkallowedit($data.OrderCanByChanged());}">
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right">
+
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right; vertical-align: middle; height: 100%">
+                                    <span class="dayOrderSummary">0.00</span>
+                                </td>
+
+                            </tr>
+                            
+                            <tr>
+                                <td style="vertical-align: middle; text-align: center">
+                                    <span data-bind="text: DayName">Пятница</span>
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Первое : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Второе : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Салат : </span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid; text-align: right" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span data-bind="text: Category() + ' : '">Напиток : </span>
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+                                    
+                                    <div style="border-bottom: 1px solid;" data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dish">&nbsp;</span>
+                                    </div>
+
+                                </td>
+                                <td style="vertical-align: middle; text-align: center;" data-bind="click: function(){$root.checkallowedit($data.OrderCanByChanged());}">
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                    <div style="border-bottom: 1px solid;" data-bind="singleClick: function(){$data.clicked($element); },   css: { menu_hover : $parent.isHovering}" class="">
+
+                                        <span class="orderCount">0</span>
+
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right">
+
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+                                    
+                                    <div data-bind=" hover: isHovering,  css: { menu_hover : isHovering}" class="">
+                                        <span class="dishPrice" style="border-bottom: 1px solid">0.00</span><br/>
+                                    </div>
+
+                                </td>
+                                <td style="text-align: right; vertical-align: middle; height: 100%">
+                                    <span class="dayOrderSummary">0.00</span>
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td class="t-header"></td>
+                                <td colspan="3" class="t-header"></td>
+                                <td style="text-align: right !important" class="t-header"><span style="font-weight: bold">Итого</span></td>
+                                <td class="t-header"><span id="weekSummaryPrice" style="font-weight: bold">0.00</span></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div id="modalMessage" class="modal">
+
+    <div class="modal-dialog">
+        <div class="panel panel-default">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 data-bind="text: Title"></h1>
+                </div>
+                <div class="modal-body">
+                    <span data-bind="text: Message"></span>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="emailComfirm" class="modal">
+    <div class="modal-dialog">
+        <div class="panel panel-default">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Сообщение</h1>
+                </div>
+                <div class="modal-body">
+                    <span>Адреса Вашей електронной почты нет в информации о доменной учётной записи.</span>
+                    <span>Заполните поле ниже актуальным электронным адресом для получения сообщений от администрации столовой.</span>
+                    <input type="text" data-bind="value:Email, hasFocus:true"/>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bind="click: applyEmail">Ok</button>
+                    <button class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    (function () {
+        $("#updateTable").css("maxHeight", "700px")
+        .parents('.banner-caption').css({ "top": "11%" });
+
+        $("#pageTable").height("350px");
+        $("#modalbox").offset({ top: 100 });
+
+    })();
+</script>
+
+
+
+
+                    <div id="footer">
+                        Copyright 2017 Ice Software Company. Все права защищены.&nbsp;
+                        <br />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var homeLoader = $('body').loadingIndicator({
+                useImage: false
+            }).data("loadingIndicator");
+
+            $.ajax({
+                beforeSend: function () {
+                    homeLoader.show();
+                },
+                complete: function () {
+                    homeLoader.hide();
+                }
+                // ......
+            });
+        });
+    </script>
+
+    <script>
+    $( "#datepicker" ).datepicker({
+        inline: true
+    });
+        
+    $(document).on("change", "#datepicker", function () {
+        currDate = $("#datepicker").datepicker( 'getDate' );
+        getDishes();
+    });
+    </script>
+
+    <script type="text/javascript">
+        const serverUrl = "http://192.168.1.4:8080";
+        var currDate = new Date();
+        var isAdmin;
+        var isSaveChanges = false;
+        var customer;
+        var dishes;
+
+        function getCustomer()
+        {
+            fetch(serverUrl + "/customer", { credentials: "include" })
+                .then(out => out.json())
+                .then(out =>
+                    {
+                        if (typeof out.Error === "undefined")
+                        {
+                            customer = out;
+                            var elem = document.getElementById("CustomerName");
+                            elem.innerHTML = ' Вы вошли как, ' + customer.LastName + ' ' + customer.FirstName + ' &nbsp;&nbsp;<a href="./Login.html" onclick="logout()">Выход <span class="glyphicon glyphicon-log-out"></span></a>';
+                            isAdmin = customer.AccessRights == "Admin";
+                            if (isAdmin)
+                            {
+                                document.getElementById("orderLabel").innerHTML = "Заказы пользователей";
+                                document.getElementById("RegUserBtn").style = "visibility: visible;";
+                            }
+                            getDishes();
+                        }
+                        else
+                        {
+                            alert(out.Error);
+                            location.href="./Login.html";
+                        }
+                    })
+                .catch(err => alert("Ошибка связи с сервером"));
+        }
+
+        function getDishes()
+        {
+            var buffDate = getCurrentWeekMonday();
+            var startDate = toEpochtime(buffDate);
+            buffDate.setDate(buffDate.getDate() + 7);
+            var endDate = toEpochtime(buffDate);
+            fetch(serverUrl + "/dishes?cid=" + customer.Id + "&start=" + startDate + "&end=" + endDate, { credentials: "include" })
+                .then(out => out.json())
+                .then(out =>
+                    {
+                        if (typeof out.Error === "undefined")
+                        {
+                            for (var i = 0; i < out.length; i++)
+                            {
+                                switch(out[i].DishType)
+                                {
+                                    case "First":
+                                        out[i].DishType = 0;
+                                        break;
+                                    case "Second":
+                                        out[i].DishType = 1;
+                                        break;
+                                    case "Salad":
+                                        out[i].DishType = 2;
+                                        break;
+                                    case "Drink":
+                                        out[i].DishType = 3;
+                                        break;
+                                }
+                            }
+                            out.sort((a, b) =>
+                                {
+                                    if (a.ValidDate == b.ValidDate)
+                                        return a.DishType - b.DishType;
+                                    return a.ValidDate - b.ValidDate;
+                                });
+                            dishes = out;
+                            getOrders();
+                        }
+                        else
+                        {
+                            alert(out.Error);
+                            location.href="./Login.html";
+                        }
+
+                    })
+                .catch(err => alert("Ошибка связи с сервером"));
+        }
+
+        function getOrders()
+        {
+            var buffDate = getCurrentWeekMonday();
+            var startDate = toEpochtime(buffDate);
+            buffDate.setDate(buffDate.getDate() + 7);
+            var endDate = toEpochtime(buffDate);
+            fetch(serverUrl + "/orders?start=" + startDate + "&end=" + endDate, { credentials: "include" })
+                .then(out => out.json())
+                .then(out =>
+                    {
+                        if (typeof out.Error === "undefined")
+                        {
+                            customer.Orders = out;
+                            makeOrders();
+                            fillData();
+                        }
+                        else
+                        {
+                            alert(out.Error);
+                            location.href="./Login.html";
+                        }
+
+                    })
+                .catch(err => alert("Ошибка связи с сервером"));
+        }
+
+        function makeOrders()
+        {
+            if (isAdmin)
+            {
+                var allCustomersOrders = new Array();
+                var allOrdersLen = 0;
+                var currDishId = -1;
+                for (var i = 0; i < customer.Orders.length; i++)
+                {
+                    if (customer.Orders[i].DishId != currDishId)
+                    {
+                        allCustomersOrders[allOrdersLen] = customer.Orders[i];
+                        currDishId = customer.Orders[i].DishId;
+                        var dishOrders = customer.Orders.filter(elem => elem.DishId == currDishId);
+                        var sum = 0;
+                        for (var j = 0; j < dishOrders.length; j++)
+                            sum += dishOrders[j].Count;
+                        allCustomersOrders[allOrdersLen].Count = sum;
+                        allOrdersLen++;
+                    }
+                }
+                customer.Orders = allCustomersOrders;
+            }
+            for (var i = 0; i < customer.Orders.length; i++)
+                customer.Orders[i].index = dishes.findIndex(dish => customer.Orders[i].DishId == dish.Id);
+            customer.Orders.sort(function (a, b) { a.index - b.index; });
+        }
+
+        function logout()
+        {
+            fetch(serverUrl + "/logout", { credentials: "include" })
+                .then(out =>
+                    {
+                        if (out.ok)
+                            return null;
+                        else
+                            return out.json();
+                    })
+                    .then(out =>
+                    {
+                        if (out != null)
+                            alert(out.Error);
+                    })
+                    .catch(err => alert("Ошибка связи с сервером"));
+        }
+
+        function toggleEdit()
+        {
+            if (isAdmin)
+            {
+                toggleEditDishes();
+                if (isSaveChanges)
+                    saveDishes();
+            }
+            else
+            {
+                toggleEditOrders();
+                if (isSaveChanges)
+                    saveOrders();
+            }
+            isSaveChanges = !isSaveChanges;
+        }
+
+        function toggleEditDishes()
+        {
+            var elemsDishes = document.getElementsByClassName("dish");
+            var elemsDishesPrices = document.getElementsByClassName("dishPrice");
+            for(var i = 0; i < elemsDishes.length; i++)
+            {
+                changeEditDish(elemsDishes, i);
+                changeEditDishPrice(elemsDishesPrices, i);
+            }
+        }
+
+        function changeEditDish(elems, i)
+        {
+            if (elems[i].tagName === "SPAN")
+            {
+                elems[i].outerHTML = '<input type="text" style="height:20px;font-size:8pt;" size="50" class="dish" value="' + elems[i].innerHTML + '">';
+            }
+            else
+            {
+                elems[i].outerHTML = '<span class="dish">' + elems[i].value + '</span>';
+            }
+        }
+
+        function changeEditDishPrice(elems, i)
+        {
+            if (elems[i].tagName === "SPAN")
+            {
+                elems[i].outerHTML = '<input type="text" style="height:20px;font-size:8pt;" size="10" class="dishPrice" value="' + elems[i].innerHTML + '">';
+            }
+            else
+            {
+                elems[i].outerHTML = '<span class="dishPrice">' + elems[i].value + '</span>';
+            }
+        }
+
+        function toggleEditOrders()
+        {
+            var elems = document.getElementsByClassName("orderCount");
+            for(var i = 0; i < elems.length; i++)
+            {
+                changeEditOrder(elems, i);
+            }
+        }
+
+        function changeEditOrder(elems, i)
+        {
+            if (elems[i].tagName === "SPAN")
+            {
+                var val = elems[i].innerHTML;
+                elems[i].outerHTML = '<select class="input-small orderCount" onchange="calcCost()"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>';
+                elems[i].selectedIndex = val;
+            }
+            else
+            {
+                elems[i].outerHTML = '<span class="orderCount">' + elems[i].value + '</span>';
+            }
+        }
+
+        function fillData()
+        {
+            var elemsDishes = document.getElementsByClassName("dish");
+            if (typeof dishes === "undefined")
+                dishes = [];
+            if (typeof customer.Orders === "undefined")
+                customer.Orders = [];
+            var elemsDishesPrices = document.getElementsByClassName("dishPrice");
+            for (var i = 0; i < elemsDishes.length; i++)
+            {
+                setDataValue(elemsDishes, i, dishes[i], "Name");
+                if (typeof dishes[i] === "undefined" || typeof dishes[i].Price === "undefined")
+                    elemsDishesPrices[i].innerHTML = "0.00";
+                else
+                    elemsDishesPrices[i].innerHTML = dishes[i].Price.toFixed(2);
+            }
+            var elemsOrders = document.getElementsByClassName("orderCount")
+            for (var i = 0; i < elemsOrders.length; i++)
+            {
+                setDataValue(elemsOrders, i, customer.Orders[i], "Count");
+            }
+            calcCost();
+        }
+
+        function setDataValue(elems, i, dataObject, propertyName)
+        {
+            switch(elems[i].tagName)
+            {
+                case "SPAN":
+                    if (typeof dataObject === "undefined" || typeof dataObject[propertyName] === "undefined")
+                        if (propertyName == "Count")
+                            elems[i].innerHTML = 0;
+                        else
+                            elems[i].innerHTML = '&nbsp;';
+                    else
+                        elems[i].innerHTML = dataObject[propertyName];
+                    break;
+                case "SELECT":
+                    if (typeof dataObject === "undefined" || typeof dataObject[propertyName] === "undefined")
+                        elems[i].selectedIndex = 0;
+                    else
+                        elems[i].selectedIndex = dataObject[propertyName];
+                    break;
+                case "INPUT":
+                    if (typeof dataObject === "undefined" || typeof dataObject[propertyName] === "undefined")
+                        elems[i].value = "";
+                    else
+                        elems[i].value = dataObject[propertyName];
+                    break;
+            }
+        }
+
+        function saveDishes()
+        {
+            var startDate = toEpochtime(getCurrentWeekMonday());
+            var elemsDishes = document.getElementsByClassName("dish");
+            var elemsDishesPrices = document.getElementsByClassName("dishPrice");
+            var reqDishes = new Array(elemsDishes.length);
+            const epochDay = 86400;
+            for (var i = 0; i < elemsDishes.length; i++)
+            {
+                reqDishes[i] = new Object();
+                if (typeof dishes[i] !== "undefined")
+                    reqDishes[i].Id = dishes[i].Id;
+                reqDishes[i].Name = elemsDishes[i].innerHTML;
+                reqDishes[i].Price = elemsDishesPrices[i].innerHTML;
+                if (i >= 0 && i < 4)
+                    reqDishes[i].ValidDate = startDate;
+                else if (i >= 4 && i < 8)
+                    reqDishes[i].ValidDate = startDate + epochDay;
+                else if (i >= 8 && i < 12)
+                    reqDishes[i].ValidDate = startDate + epochDay * 2;
+                else if (i >= 12 && i < 16)
+                    reqDishes[i].ValidDate = startDate + epochDay * 3;
+                else
+                    reqDishes[i].ValidDate = startDate + epochDay * 4;
+                if (i % 4 == 0)
+                    reqDishes[i].DishType = "First";
+                else if (i % 4 == 1)
+                    reqDishes[i].DishType = "Second";
+                else if (i % 4 == 2)
+                    reqDishes[i].DishType = "Salad";
+                else if (i % 4 == 3)
+                    reqDishes[i].DishType = "Drink";
+            }
+
+            fetch(serverUrl + "/dishes", { headers: new Headers({"content-type": "application/json"}), method: "POST", body: JSON.stringify(reqDishes), credentials: "include" })
+                .then(out =>
+                {
+                    if (out.ok)
+                    {
+                        getDishes();
+                        return null;
+                    }
+                    else
+                        return out.json();
+                })
+                .then(out =>
+                {
+                    if (out != null)
+                        alert(out.Error);
+                })
+                .catch(err => alert("Ошибка связи с сервером"));
+        }
+
+        function saveOrders()
+        {
+            var startDate = toEpochtime(getCurrentWeekMonday());
+            var elemsOrders = document.getElementsByClassName("orderCount");
+            var reqOrders = new Array(elemsOrders.length);
+            const epochDay = 86400;
+            for (var i = 0; i < elemsOrders.length; i++)
+            {
+                reqOrders[i] = new Object();
+                if (typeof customer.Orders[i] !== "undefined")
+                    reqOrders[i].Id = customer.Orders.find(order => order.DishId == dishes[i].Id).Id;
+                reqOrders[i].CustomerId = customer.Id;
+                reqOrders[i].DishId = dishes[i].Id;
+                reqOrders[i].Count = elemsOrders[i].innerHTML;
+            }
+
+            fetch(serverUrl + "/orders", { headers: new Headers({"content-type": "application/json"}), method: "POST", body: JSON.stringify(reqOrders), credentials: "include" })
+                .then(out =>
+                {
+                    if (out.ok)
+                    {
+                        getOrders();
+                        return null;
+                    }
+                    else
+                        return out.json();
+                })
+                .then(out =>
+                {
+                    if (out != null)
+                        alert(out.Error);
+                })
+                .catch(err => alert("Ошибка связи с сервером"));
+        }
+
+        function getCurrentWeekMonday()
+        {
+            var result = new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate());
+            while (result.getDay() != 1)
+            {
+                result.setDate(result.getDate() - 1);
+            }
+
+            return result;
+        }
+
+        function toEpochtime(date)
+        {
+            return (date.getTime() / 1000) | 0
+        }
+
+        function registerUser()
+        {
+            location.href="./Registration.html";
+        }
+
+        function calcCost()
+        {
+            var elemsOrder = document.getElementsByClassName('orderCount');
+            var elemsPrice = document.getElementsByClassName('dishPrice');
+            var elemsSummary = document.getElementsByClassName('dayOrderSummary');
+            var weekSummary = 0;
+            for (var i = 0; i < elemsSummary.length; i++)
+            {
+                var summary = 0;
+                for (var j = i * 4; j < i * 4 + 4; j++)
+                {
+                    summary += getDataValue(elemsOrder, j) * getDataValue(elemsPrice, j);
+                }
+                elemsSummary[i].innerHTML = summary.toFixed(2);
+                weekSummary += summary;
+            }
+            document.getElementById("weekSummaryPrice").innerHTML = weekSummary.toFixed(2);
+        }
+
+        function getDataValue(elems, i)
+        {
+            switch(elems[i].tagName)
+            {
+                case "SPAN":
+                    return elems[i].innerHTML;
+                    break;
+                case "SELECT":
+                    return elems[i].value;
+                    break;
+                case "INPUT":
+                    return elems[i].value;
+                    break;
+            }
+        }
+
+        getCustomer();
+    </script> 
+</body>
+</html>
